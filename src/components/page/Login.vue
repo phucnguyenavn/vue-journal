@@ -15,10 +15,11 @@
 
 <script>
 import { useStore } from "vuex";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import PasswordInput from "../UI/PasswordInput.vue";
 import EmailInput from "../UI/EmailInput.vue";
 import AuthButton from "../UI/AuthButton.vue";
+import { actionTypes } from "../../store/store-types";
 
 export default {
   components: { PasswordInput, EmailInput, AuthButton },
@@ -27,17 +28,14 @@ export default {
     const store = useStore();
     let enteredEmail = ref("");
     let enteredPassword = ref("");
-    let isError = ref();
-    let isLoading = ref();
-    const submitLogin = () => {
-      isError.value = false;
-      isLoading.value = true;
+    let isError = ref(false);
+    let isLoading = computed(() => store.getters.isLoading);
+    const submitLogin = async () => {
       try {
-        store.dispatch("login", {
+        await store.dispatch(actionTypes.Login, {
           email: enteredEmail.value,
           password: enteredPassword.value,
         });
-        isLoading.value = false;
       } catch (err) {
         isError.value = true;
       }

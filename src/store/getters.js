@@ -1,1 +1,5 @@
-export default {};
+export default {
+  isLoading(state) {
+    return state.isLoading;
+  },
+};

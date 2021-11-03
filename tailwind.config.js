@@ -14,6 +14,9 @@ module.exports = {
         "screen/4": "calc(100vh / 4)",
         "screen/5": "calc(100vh / 5)",
       }),
+      inset: {
+        "top-3px": "3px",
+      },
     },
     colors: {
       whilte: colors.white,
