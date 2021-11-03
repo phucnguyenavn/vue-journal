@@ -5,7 +5,7 @@
       <input
         :type="[isOn ? 'text' : 'password']"
         class="input-auth"
-        :class="{ 'bg-red-100': isError }"
+        :class="{ 'bg-red-100 border-red-300': isError }"
         placeholder="Enter password...."
         :value="value"
         @input="$emit('update:value', $event.target.value)"
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { visibilityOffSvg, visibilityOnSvg } from "../../common/SvgPath";
+import { visibilityOffSvg, visibilityOnSvg } from "../../../common/SvgPath";
 import { ref } from "vue";
 import AuthSvg from "./AuthSvg.vue";
 

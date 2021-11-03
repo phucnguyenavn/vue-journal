@@ -4,7 +4,7 @@
     <input
       type="search"
       class="input-auth"
-      :class="{ 'bg-red-100': isError }"
+      :class="{ 'bg-red-100 border-red-300': isError }"
       placeholder="Enter email address..."
       :value="value"
       @input="$emit('update:value', $event.target.value)"

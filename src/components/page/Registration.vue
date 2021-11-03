@@ -1,18 +1,17 @@
 <template>
   <div class="flex h-screen-85">
-    <form class="m-auto" @submit.prevent="submitLogin">
+    <form class="m-auto" @submit.prevent="submitRegistration">
       <div class="text-3xl font-bold border-b py-3">
-        <div class="w-7/12 mx-auto">Login</div>
+        <div class="w-3/4 mx-auto">Signup</div>
       </div>
       <email-input :isError="isError" v-model:value.trim="enteredEmail" />
-
       <password-input :isError="isError" v-model:value.trim="enteredPassword" />
       <spinner class="w-full" v-if="isLoading" />
-      <auth-button>Log in</auth-button>
+      <auth-button>Sign up</auth-button>
       <div class="text-xss opacity-70 float-right">
-        Dont have account ?
-        <router-link class="underline" :to="{ name: 'signup' }"
-          >Signup</router-link
+        Already have account ?
+        <router-link class="underline" :to="{ name: 'login' }"
+          >Login</router-link
         >
       </div>
     </form>
@@ -22,31 +21,51 @@
 <script>
 import { useStore } from "vuex";
 import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 import PasswordInput from "../UI/auth/PasswordInput.vue";
 import EmailInput from "../UI/auth/EmailInput.vue";
 import AuthButton from "../UI/auth/AuthButton.vue";
 import { actionTypes } from "../../store/store-types";
+import { mailPattern, passwordPattern } from "../../common/patterns";
 
 export default {
   components: { PasswordInput, EmailInput, AuthButton },
   setup() {
     const store = useStore();
+    const router = useRouter();
     let enteredEmail = ref("");
     let enteredPassword = ref("");
     let isError = ref(false);
     let isLoading = computed(() => store.getters.isLoading);
-    const submitLogin = async () => {
+    const submitRegistration = async () => {
+      validate();
       try {
-        await store.dispatch(actionTypes.Login, {
+        await store.dispatch(actionTypes.Registration, {
           email: enteredEmail.value,
           password: enteredPassword.value,
         });
+        router.push("login");
       } catch (err) {
         isError.value = true;
       }
     };
+    const validate = () => {
+      if (
+        !mailPattern.test(enteredEmail.value) ||
+        !passwordPattern.test(enteredPassword.value)
+      ) {
+        isError.value = true;
+        return;
+      }
+    };
 
-    return { submitLogin, enteredPassword, enteredEmail, isError, isLoading };
+    return {
+      submitRegistration,
+      enteredPassword,
+      enteredEmail,
+      isError,
+      isLoading,
+    };
   },
 };
 </script>

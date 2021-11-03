@@ -17,6 +17,10 @@ module.exports = {
       inset: {
         "top-3px": "3px",
       },
+      fontSize: {
+        xss: ".65rem",
+        xxs: ".75rem",
+      },
     },
     colors: {
       whilte: colors.white,

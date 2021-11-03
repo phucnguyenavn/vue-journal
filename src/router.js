@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "./components/page/Login.vue";
+import Registration from "./components/page/Registration.vue";
 import Home from "./Home.vue";
 
 const routes = [
@@ -14,6 +15,12 @@ const routes = [
     component: Login,
     name: "login",
     meta: { title: "PlaceHolder - Login" },
+  },
+  {
+    path: "/signup",
+    component: Registration,
+    name: "signup",
+    meta: { title: "PlaceHolder - Registration" },
   },
 ];
 

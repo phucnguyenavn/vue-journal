@@ -1,7 +1,10 @@
 ## Leanrt
 
 - Not everything is width % base.
-- Use vue3-cookie, Know about plugin.
+- Plug the cookie in.
+- Debug in vscode is weird.
+- Icon inside input (Relative and absolute).
+- import.meta.env.VITE_ just a reminder.
 
 ## Goals
 
@@ -10,5 +13,5 @@
 ## Todo
 
 - ~~Login~~
-- Register
+- ~~Register~~
 - Think of how to display Journal
