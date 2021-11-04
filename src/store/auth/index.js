@@ -4,7 +4,9 @@ import mutations from "./mutations";
 
 export default {
   state() {
-    return {};
+    return {
+      userId: localStorage.getItem("user-id")
+    };
   },
   actions,
   getters,

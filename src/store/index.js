@@ -8,6 +8,7 @@ const store = createStore({
   modules: { auth: authModule },
   state() {
     return {
+      
       isLoading: false,
     };
   },
