@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "./components/page/Login.vue";
 import Registration from "./components/page/Registration.vue";
-import Home from "./Home.vue";
+import Home from "./components/page/Home.vue";
 import { $cookies } from "./plugin/cookies";
 
 const routes = [

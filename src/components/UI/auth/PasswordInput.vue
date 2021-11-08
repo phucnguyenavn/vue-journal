@@ -11,11 +11,10 @@
         @input="$emit('update:value', $event.target.value)"
       />
       <span class="absolute z-10 top-1 right-px" @click="toggle">
-        <auth-svg v-if="isOn" :dOne="visibilityOnOne" :dTwo="visibilityOnTwo" />
-        <auth-svg
+        <base-svg v-if="isOn" :d="visibilityOn" />
+        <base-svg
           v-else-if="!isOn"
-          :dOne="visibilityOffOne"
-          :dTwo="visibilityOffTwo"
+          :d="visibilityOff"
         />
       </span>
     </div>
@@ -25,25 +24,20 @@
 <script>
 import { visibilityOffSvg, visibilityOnSvg } from "../../../common/SvgPath";
 import { ref } from "vue";
-import AuthSvg from "./AuthSvg.vue";
 
 export default {
-  components: { AuthSvg },
   props: ["value", "isError"],
   setup() {
     const isOn = ref(false);
     const toggle = () => {
       isOn.value = !isOn.value;
     };
-    const visibilityOnOne = ref(visibilityOnSvg[0]);
-    const visibilityOnTwo = ref(visibilityOnSvg[1]);
-    const visibilityOffOne = ref(visibilityOffSvg[0]);
-    const visibilityOffTwo = ref(visibilityOffSvg[1]);
+    const visibilityOn = ref(visibilityOnSvg);
+    const visibilityOff = ref(visibilityOffSvg);
+
     return {
-      visibilityOnOne,
-      visibilityOnTwo,
-      visibilityOffOne,
-      visibilityOffTwo,
+      visibilityOn,
+      visibilityOff,
       isOn,
       toggle,
     };
