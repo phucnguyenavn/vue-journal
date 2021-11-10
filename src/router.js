@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import Login from "./components/page/Login.vue";
 import Registration from "./components/page/Registration.vue";
 import Home from "./components/page/Home.vue";
+import Journal from "./components/page/Journal.vue";
+import Page from "./components/page/Page.vue";
+
 import { $cookies } from "./plugin/cookies";
 
 const routes = [
@@ -10,6 +13,22 @@ const routes = [
     component: Home,
     name: "home",
     meta: { title: "PlaceHolder - Home" },
+    children: [
+      {
+        path: "/journal",
+        component: Journal,
+        name: "journal",
+        meta: { title: "PlaceHolder - Journal" },
+        children: [
+          {
+            path: "/holder",
+            component: Page,
+            name: "page",
+            meta: { title: "PlaceHolder - Journal" },
+          },
+        ],
+      },
+    ],
   },
   {
     path: "/login",

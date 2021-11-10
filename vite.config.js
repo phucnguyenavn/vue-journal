@@ -8,6 +8,12 @@ export default ({ mode }) => {
   // import.meta.env.VITE_PORT available here with: process.env.VITE_PORT
 
   return defineConfig({
-    plugins: [vue()],
+    plugins: [vue({
+      template : {
+        compilerOptions : {
+          isCustomElement : tag => tag.startsWith("emoji")
+        }
+      }
+    })],
   });
 };

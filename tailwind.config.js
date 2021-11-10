@@ -1,4 +1,5 @@
 const colors = require("tailwindcss/colors");
+//const plugin = require("tailwindcss/plugin");
 
 module.exports = {
   purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
@@ -37,5 +38,7 @@ module.exports = {
       ringColor: ["hover", "active"],
     },
   },
-  plugins: [],
+  plugins: [
+   
+  ],
 };

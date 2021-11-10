@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed top-0 left-0 h-full z-10 bg-gray-100"
+    class="fixed top-0 left-0 h-screen  z-10 bg-gray-100"
     :class="{ 'w-32': isOpen, 'w-0': !isOpen }"
   >
     <base-svg
@@ -33,24 +33,21 @@ import { doubleArrowRightSvg, doubleArrowLeftSvg } from "../../common/SvgPath";
 import journalSvg from "../../assets/journal.svg";
 
 export default {
+    props : ["isOpen","toggle"],
   setup() {
     const doubleArrowRight = ref(doubleArrowRightSvg);
     const doubleArrowLeft = ref(doubleArrowLeftSvg);
     const journalImg = ref(journalSvg);
-    let isOpen = ref(true);
+    
     let isCurrent = ref(true);
-    const toggle = () => {
-      isOpen.value = !isOpen.value;
-    };
+
     const logout = () => {};
     const toJournal = () =>{};
     return {
       doubleArrowRight,
       doubleArrowLeft,
       journalImg,
-      isOpen,
       isCurrent,
-      toggle,
       logout,
       toJournal
     };
