@@ -5,6 +5,7 @@
 - Debug in vscode is weird.
 - Icon inside input (Relative and absolute).
 - import.meta.env.VITE_ just a reminder.
+- * use ref to get DOM , LifeHooks so important!
 
 ## Goals
 
@@ -14,4 +15,8 @@
 
 - ~~Login~~
 - ~~Register~~
-- Think of how to display Journal
+- ~~Think of how to display Journal~~
+-- Display Journal
+- User Input
+- AutoSave to IndexedDB
+- Sync back to backend
