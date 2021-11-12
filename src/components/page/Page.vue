@@ -52,7 +52,6 @@
       </div>
       <div class="pt-2">
         <ckeditor
-          class="titleCk border-0"
           :editor="editor"
           v-model="content"
           :config="editorConfig"
@@ -118,5 +117,12 @@ export default {
 .tilteDiv[contentEditable="true"]:empty:not(:focus):before {
   content: attr(placeholder);
   opacity: 50%;
+}
+.ck-focused { 
+  border: none !important;
+}
+:focus {
+  outline: 0 !important;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
 }
 </style>
