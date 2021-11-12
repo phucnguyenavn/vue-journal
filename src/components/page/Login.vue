@@ -26,11 +26,13 @@ import PasswordInput from "../UI/auth/PasswordInput.vue";
 import EmailInput from "../UI/auth/EmailInput.vue";
 import AuthButton from "../UI/auth/AuthButton.vue";
 import { actionTypes } from "../../store/store-types";
+import { useRouter } from 'vue-router';
 
 export default {
   components: { PasswordInput, EmailInput, AuthButton },
   setup() {
     const store = useStore();
+    const router = useRouter();
     let enteredEmail = ref("");
     let enteredPassword = ref("");
     let isError = ref(false);
@@ -41,6 +43,7 @@ export default {
           email: enteredEmail.value,
           password: enteredPassword.value,
         });
+        await router.push({name : "home"});
       } catch (err) {
         isError.value = true;
       }

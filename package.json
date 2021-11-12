@@ -7,8 +7,11 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-balloon": "^31.0.0",
+    "@ckeditor/ckeditor5-vue": "^2.0.1",
     "axios": "^0.24.0",
     "emoji-picker-element": "^1.8.2",
+    "idb": "^6.1.5",
     "vue": "^3.2.16",
     "vue-router": "^4.0.12",
     "vue3-cookies": "^1.0.1",

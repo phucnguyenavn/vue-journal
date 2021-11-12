@@ -1,5 +1,5 @@
 <template>
- <page />
+ <page :isPageOpen="isPageOpen"/>
   <div
     class="mt-6"
     :class="{ 'w-3/4 ml-40 ': isOpen, 'w-10/12 mx-auto': !isOpen }"
@@ -31,16 +31,19 @@
 </template>
 
 <script>
-import { ref } from "vue";
+
 import Page from './Page.vue';
+import {ref} from "vue";
 
 export default {
   components: { Page },
-  props: ["isOpen"],
+  props : ["isOpen"],
   setup() {
-    const temp = [];
+    let isPageOpen = ref(true);
+
+    return {isPageOpen};
   },
 };
 </script>
 
-<style></style>
+

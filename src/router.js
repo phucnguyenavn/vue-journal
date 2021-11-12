@@ -51,9 +51,9 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title;
-  if ((to.name !== "login" || to.name !== "signup") && !isAuthenticated())
+  if ((to.name !== "login" && to.name !== "signup") && !isAuthenticated())
     next({ name: "login" });
-  else if ((to.name === "login" || to.name === "signup") && isAuthenticated()) {
+  else if ((to.name === "login" && to.name === "signup") && isAuthenticated()) {
     next({ name: "home" });
   } else next();
 });

@@ -6,7 +6,6 @@
 - Icon inside input (Relative and absolute).
 - import.meta.env.VITE_ just a reminder.
 - * use ref to get DOM , LifeHooks so important!
-
 ## Goals
 
 - An app where I can keep track of myself whether it is thought or activity, mood.
@@ -20,3 +19,7 @@
 - User Input
 - AutoSave to IndexedDB
 - Sync back to backend
+
+## Unknown Problems
+-  ~~Emoji picker only responses to negavition.~~
+-  The contenteditable hit new line return to the start  
