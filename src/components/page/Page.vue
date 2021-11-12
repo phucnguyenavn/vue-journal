@@ -1,5 +1,5 @@
 <template>
-  <backdrop v-if="isPageOpen" />
+  <backdrop v-if="isPageOpen" @click.prevent="$emit('togglePageOpen',$event)"/>
   <div
     v-if="isPageOpen"
     class="
@@ -68,6 +68,7 @@ import BalloonEditor from "@ckeditor/ckeditor5-build-balloon";
 
 export default {
   components: { EmoPicker },
+  emits : ["togglePageOpen"],
   props: ["isPageOpen"],
   setup() {
     let emoji = ref();
@@ -90,6 +91,7 @@ export default {
     const titleInput = (e) => {
       title.value = e.target.innerText;
     };
+
     watch(selected, (newSelected, OldSelected) => {
       console.log(newSelected);
     });

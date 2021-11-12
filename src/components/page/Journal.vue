@@ -1,5 +1,5 @@
 <template>
- <page :isPageOpen="isPageOpen"/>
+ <page :isPageOpen="isPageOpen" @togglePageOpen="togglePageOpen"/>
   <div
     class="mt-6"
     :class="{ 'w-3/4 ml-40 ': isOpen, 'w-10/12 mx-auto': !isOpen }"
@@ -40,8 +40,10 @@ export default {
   props : ["isOpen"],
   setup() {
     let isPageOpen = ref(true);
-
-    return {isPageOpen};
+    const togglePageOpen = () =>{
+      isPageOpen.value = ! isPageOpen.value;
+    }
+    return {isPageOpen,togglePageOpen};
   },
 };
 </script>
