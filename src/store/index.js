@@ -8,7 +8,7 @@ const store = createStore({
   modules: { auth: authModule },
   state() {
     return {
-      
+      today : new Date().toLocaleDateString(),
       isLoading: false,
     };
   },

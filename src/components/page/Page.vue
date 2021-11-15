@@ -1,5 +1,8 @@
 <template>
-  <backdrop v-if="isPageOpen" @click.prevent="$emit('togglePageOpen',$event)"/>
+  <backdrop
+    v-if="isPageOpen"
+    @click.prevent="$emit('togglePageOpen', $event)"
+  />
   <div
     v-if="isPageOpen"
     class="
@@ -17,7 +20,7 @@
     <div class="w-3/4 mx-auto border-b pb-1">
       <div class="mx-auto w-1/3 mt-3">
         <select
-          v-model="selected"
+          v-model="mood"
           class="overflow-hidden h-7 text-center outline-none"
           multiple
         >
@@ -65,14 +68,17 @@
 import { ref, watch } from "vue";
 import EmoPicker from "../UI/EmoPicker.vue";
 import BalloonEditor from "@ckeditor/ckeditor5-build-balloon";
+import { addDB } from "../../store/db/indexedDB";
+import { useStore } from "vuex";
 
 export default {
   components: { EmoPicker },
-  emits : ["togglePageOpen"],
+  emits: ["togglePageOpen"],
   props: ["isPageOpen"],
   setup() {
+    const store = useStore();
     let emoji = ref();
-    let selected = ref([]);
+    let mood = ref([]);
     let isEmojiOpen = ref(false);
     let content = ref();
     let title = ref();
@@ -81,8 +87,11 @@ export default {
       toolbar: { items: [] },
     };
     const onClickEmoPicker = (value) => {
-      emoji.value = value.detail.unicode;
-      toggleEmojiTable();
+      if (value.detail) {
+        emoji.value = value.detail.unicode;
+        toggleEmojiTable();
+      }
+
       console.log(emoji.value);
     };
     const toggleEmojiTable = () => {
@@ -92,17 +101,20 @@ export default {
       title.value = e.target.innerText;
     };
 
-    watch(selected, (newSelected, OldSelected) => {
-      console.log(newSelected);
+    watch([content, title, emoji, mood], () => {
+      addDB(
+        title.value,
+        content.value,
+        emoji.value,
+        store.getters.today,
+        JSON.parse(JSON.stringify(parseInt(mood.value[0])))
+      );
     });
-    /*    watch(content, (newSelected, OldSelected) => {
-      console.log(newSelected);
-    }); */
 
     return {
       emoji,
       onClickEmoPicker,
-      selected,
+      mood,
       isEmojiOpen,
       toggleEmojiTable,
       content,
@@ -120,7 +132,7 @@ export default {
   content: attr(placeholder);
   opacity: 50%;
 }
-.ck-focused { 
+.ck-focused {
   border: none !important;
 }
 :focus {

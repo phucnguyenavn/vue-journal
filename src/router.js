@@ -21,7 +21,7 @@ const routes = [
         meta: { title: "PlaceHolder - Journal" },
         children: [
           {
-            path: "/holder",
+            path: "/:id",
             component: Page,
             name: "page",
             meta: { title: "PlaceHolder - Journal" },
@@ -53,7 +53,7 @@ router.beforeEach((to, from, next) => {
   document.title = to.meta.title;
   if ((to.name !== "login" && to.name !== "signup") && !isAuthenticated())
     next({ name: "login" });
-  else if ((to.name === "login" && to.name === "signup") && isAuthenticated()) {
+  else if ((to.name === "login" || to.name === "signup") && isAuthenticated()) {
     next({ name: "home" });
   } else next();
 });
