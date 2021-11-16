@@ -1,6 +1,6 @@
 <template>
-    <side-navbar :isOpen="isOpen" :toggle="toggle" />
-    <journal :isOpen="isOpen" />
+    <side-navbar :isOpen="isOpen" :toggle="toggle"/>
+    <router-view :isOpen="isOpen"/>
 </template>
 
 <script>

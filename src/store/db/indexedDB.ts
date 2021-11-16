@@ -2,7 +2,9 @@ import { openDB } from "idb";
 
 const DB_NAME = "utility-db";
 const DB_VERSION = 1;
-
+const idb = {
+    journal : openDB(DB_NAME, DB_VERSION)
+}
 
 export async function getDB() {
   await openDB(DB_NAME, DB_VERSION, {
@@ -11,9 +13,10 @@ export async function getDB() {
     },
   });
 }
+
 export async function addDB(title:String, content:String, emoji:String, date:Date, mood:Number) {
-  const db = await openDB(DB_NAME, DB_VERSION);
-  db.put("journal", {
+  const db = await idb.journal;
+  await db.put("journal", {
     user_id: localStorage.getItem("user-id"),
     title: title,
     content: content,
@@ -21,4 +24,15 @@ export async function addDB(title:String, content:String, emoji:String, date:Dat
     date: date,
     mood: mood,
   });
+}
+
+export async function getJournal(key : Date){
+    const db = await idb.journal;
+    return await db.get("journal", key);
+}
+
+export async function getJournals(){
+    const db = await idb.journal;
+     return await db.getAll("journal");
+        
 }

@@ -21,7 +21,7 @@ const routes = [
         meta: { title: "PlaceHolder - Journal" },
         children: [
           {
-            path: "/page",
+            path: "/page/:date",
             component: Page,
             name: "page",
             meta: { title: "PlaceHolder - Journal" },

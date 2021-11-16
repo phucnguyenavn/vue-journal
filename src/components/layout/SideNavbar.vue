@@ -15,11 +15,11 @@
       class="cursor-pointer"
       @click="toggle"
     />
-    <div v-if="isOpen" class="cursor-pointer">
-      <div class="underline text-xs " @Click="logout">
+    <div v-if="isOpen">
+      <div class="underline text-xs cursor-pointer w-12" @Click="logout">
         Log out
       </div>
-      <div class="m-7 font-medium" @click="toJournal">
+      <div class="m-7 font-medium cursor-pointer" @click="toJournal">
         <div class="inline-block"><img :src="journalImg" class="w-3.5" /></div>
         <div class="inline-block">Journal</div>
       </div>
@@ -48,7 +48,9 @@ export default {
       await $cookies.remove("token");
       await router.push({name : "login"});
     };
-    const toJournal = () =>{};
+    const toJournal = async() =>{
+      await router.push({name : "journal"})
+    };
     return {
       doubleArrowRight,
       doubleArrowLeft,
