@@ -1,51 +1,43 @@
 <template>
- <page :isPageOpen="isPageOpen" @togglePageOpen="togglePageOpen"/>
+  <page :isPageOpen="isPageOpen" @togglePageOpen="togglePageOpen" />
   <div
     class="mt-6"
     :class="{ 'w-3/4 ml-40 ': isOpen, 'w-10/12 mx-auto': !isOpen }"
   >
-    <div class="text-md font-bold">Journal - Put In Meaningful Cell</div>
-    <div>
-      <div class="grid grid-cols-7 text-center">
-        <div class="border">Mon</div>
-        <div>Tue</div>
-        <div>Wed</div>
-        <div>Thu</div>
-        <div>Fri</div>
-        <div>Sat</div>
-        <div>Sun</div>
-      </div>
-
-      <div class="border grid grid-cols-7 text-center">
-        <div v-for="a in 29" :key="a" class="border">
-          
-          <div>a</div>
-          <div>a</div>
-          <div>a</div>
-          <div>a</div>
-        </div>
+    <div class="text-lg font-bold">Journal</div>
+    <div class="mt-6">
+      <div class="border-b">
+        <datepicker
+          placeholder="Show Entries"
+          class="cursor-pointer outline-none rounded-md bg-gray-50 w-24 "
+          v-model="dateSelected"
+          minimumView="month"
+          inputFormat="MM-yyyy"
+          clearable
+        />
       </div>
     </div>
   </div>
- 
 </template>
 
 <script>
-
-import Page from './Page.vue';
-import {ref} from "vue";
+import Datepicker from "vue3-datepicker";
+import Page from "./Page.vue";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
 
 export default {
-  components: { Page },
-  props : ["isOpen"],
+  components: { Page, Datepicker },
+  props: ["isOpen"],
   setup() {
-    let isPageOpen = ref(true);
-    const togglePageOpen = () =>{
-      isPageOpen.value = ! isPageOpen.value;
-    }
-    return {isPageOpen,togglePageOpen};
+    const store = useStore();
+    let isPageOpen = ref(false);
+    let dateSelected = ref();
+    const togglePageOpen = () => {
+      isPageOpen.value = !isPageOpen.value;
+    };
+
+    return { isPageOpen, togglePageOpen, dateSelected };
   },
 };
 </script>
-
-

@@ -15,13 +15,13 @@ const routes = [
     meta: { title: "PlaceHolder - Home" },
     children: [
       {
-        path: "/journal",
+        path: "journal",
         component: Journal,
         name: "journal",
         meta: { title: "PlaceHolder - Journal" },
         children: [
           {
-            path: "/:id",
+            path: "/page",
             component: Page,
             name: "page",
             meta: { title: "PlaceHolder - Journal" },

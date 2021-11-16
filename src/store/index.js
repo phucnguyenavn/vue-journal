@@ -8,7 +8,12 @@ const store = createStore({
   modules: { auth: authModule },
   state() {
     return {
-      today : new Date().toLocaleDateString(),
+      today: new Date()
+        .toISOString()
+        .replace(/T.*/, "")
+        .split("-")
+        .reverse()
+        .join("-"),
       isLoading: false,
     };
   },

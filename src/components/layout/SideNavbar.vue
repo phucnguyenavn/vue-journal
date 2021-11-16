@@ -31,17 +31,23 @@
 import { ref } from "vue";
 import { doubleArrowRightSvg, doubleArrowLeftSvg } from "../../common/SvgPath";
 import journalSvg from "../../assets/journal.svg";
+import { $cookies } from "../../plugin/cookies";
+import { useRouter } from "vue-router";
 
 export default {
     props : ["isOpen","toggle"],
   setup() {
+    const router = useRouter();
     const doubleArrowRight = ref(doubleArrowRightSvg);
     const doubleArrowLeft = ref(doubleArrowLeftSvg);
     const journalImg = ref(journalSvg);
     
     let isCurrent = ref(true);
 
-    const logout = () => {};
+    const logout = async () => {
+      await $cookies.remove("token");
+      await router.push({name : "login"});
+    };
     const toJournal = () =>{};
     return {
       doubleArrowRight,
