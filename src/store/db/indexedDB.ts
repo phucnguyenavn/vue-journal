@@ -33,8 +33,10 @@ export async function addDB(
 }
 
 export async function getJournal(key: Date) {
-  const db = await idb.journal;
-  return await db.get("journal", key);
+  if (key) {
+    const db = await idb.journal;
+    return await db.get("journal", key);
+  }
 }
 
 export async function getJournals() {

@@ -1,5 +1,5 @@
 <template>
-  <page :isPageOpen="isPageOpen" @togglePageOpen="togglePageOpen" />
+  <page :isPageOpen="isPageOpen" @togglePageOpen="togglePageOpen" v-if="isPageOpen"/>
   <div
     class="mt-6"
     :class="{ 'w-3/4 ml-40 ': isOpen, 'w-10/12 mx-auto': !isOpen }"
@@ -8,8 +8,8 @@
     <div class="mt-6 text-xs">
       <div class="border-b">
         <datepicker
-          placeholder="Show Entries"
-          class="cursor-pointer outline-none rounded-md bg-gray-50 w-24"
+          placeholder="Date Picker"
+          class="cursor-pointer outline-none rounded-md bg-gray-50 w-16"
           v-model="dateSelected"
           minimumView="month"
           inputFormat="MM/yyyy"
@@ -28,6 +28,7 @@
           v-for="journal in journals"
           :key="journal"
           :to="{ name: 'page', params: { date: journal.date } }"
+          @click.prevent="togglePageOpen"
         >
           <div class="grid grid-cols-3 border-b pt-1 hover:bg-gray-200">
             <div class="col-end-1">{{ journal.emoji }}</div>
@@ -57,36 +58,40 @@ export default {
   setup() {
     const store = useStore();
     const router = useRouter();
-    const route = useRoute();
     const today = computed(() => store.getters.today);
     let isLoading = computed(() => store.getters.isLoading);
     const journals = ref();
     const getJ = async () => {
       store.commit(mutationTypes.IsLoading, true);
       return await getJournals()
-        .then(
-          (res) => (journals.value = res.filter((ele) => filterJournal(ele)))
-        )
+        .then((res) => {
+          journals.value = res.filter(ele => filterJournal(ele));
+        })
         .finally(store.commit(mutationTypes.IsLoading, false));
     };
 
     let isPageOpen = ref(false);
     let dateSelected = ref(new Date());
-    const togglePageOpen = async () => {
+    const togglePageOpen =  () => {
       isPageOpen.value = !isPageOpen.value;
       if (!isPageOpen.value) {
-        router.push({ name: "journal" });
+         router.push({ name: "journal" });
       }
     };
     const filterJournal = (ele) => {
       let date = new Date(ele.date);
+      if(dateSelected.value!==null)
       return (
         date.getMonth() === dateSelected.value.getMonth() &&
         date.getFullYear() === dateSelected.value.getFullYear()
       );
     };
-    watch([isPageOpen, dateSelected], (newValue, oldValue) => {
-      console.log(newValue);
+    /*     const sortDate = (date1, date2) => {
+      date1 = date1.split("/").reverse().join("");
+      date2 = date2.split("/").reverse().join("");
+      return date1.localeComapre(b);
+    }; */
+    watch([isPageOpen, dateSelected], () => {
       getJ();
     });
     getJ();
