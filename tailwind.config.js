@@ -32,11 +32,11 @@ module.exports = {
         xxs: ".75rem",
       },
       backgroundImage: {
-        1: "url('./src/assets/1.svg')",
-        2: "url('./src/assets/2.svg')",
-        3: "url('./src/assets/3.svg')",
-        4: "url('./src/assets/4.svg')",
-        5: "url('./src/assets/5.svg')",
+        1: "url('/src/assets/1.svg')",
+        2: "url('/src/assets/2.svg')",
+        3: "url('/src/assets/3.svg')",
+        4: "url('/src/assets/4.svg')",
+        5: "url('/src/assets/5.svg')",
       },
     },
     colors: {

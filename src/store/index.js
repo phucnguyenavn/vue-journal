@@ -9,11 +9,7 @@ const store = createStore({
   state() {
     return {
       today: new Date()
-        .toISOString()
-        .replace(/T.*/, "")
-        .split("-")
-        .reverse()
-        .join("-"),
+        .toLocaleDateString(),
       isLoading: false,
     };
   },
