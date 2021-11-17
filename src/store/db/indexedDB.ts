@@ -46,15 +46,13 @@ export async function getJournals() {
 
 export async function mockData() {
   const db = await idb.journal;
-  let j = 1;
-  for (let i = 0; i < 30; i++) {
+  for (let i = 1; i < 30; i++) {
     let d = new Date();
-    d.setDate(j++);
+    d.setDate(i);
     let date = d.toLocaleDateString();
     await db.put("journal", {
-      user_id: localStorage.getItem("user-id"),
       title: "abc " + i,
-      content: "def" + i,
+      content: "<p>def " + i+"</p>",
       emoji: "😗",
       date: date,
       mood: 1,

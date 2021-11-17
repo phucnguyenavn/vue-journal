@@ -113,11 +113,6 @@ export default {
           date.getFullYear() === dateSelected.value.getFullYear()
         );
     };
-    /*     const sortDate = (date1, date2) => {
-      date1 = date1.split("/").reverse().join("");
-      date2 = date2.split("/").reverse().join("");
-      return date1.localeComapre(b);
-    }; */
     watch([isPageOpen, dateSelected], () => {
       getJ();
     });

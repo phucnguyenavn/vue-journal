@@ -43,6 +43,7 @@ export default {
           email: enteredEmail.value,
           password: enteredPassword.value,
         });
+        await store.dispatch(actionTypes.FindUserJournalId,store.getters.userId);
         await router.push({name : "home"});
       } catch (err) {
         isError.value = true;

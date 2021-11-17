@@ -5,7 +5,7 @@ import mutations from "./mutations";
 export default {
   state() {
     return {
-      
+      userJournalId: localStorage.getItem("user-journal-id"),
     };
   },
   actions,

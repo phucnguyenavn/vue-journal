@@ -59,7 +59,7 @@ router.beforeEach((to, from, next) => {
 });
 
 const isAuthenticated = () => {
-  return $cookies.get("token");
+  return $cookies.get("token") && localStorage.getItem("user-id");
 };
 
 export default router;

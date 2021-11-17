@@ -46,6 +46,7 @@ export default {
 
     const logout = async () => {
       await $cookies.remove("token");
+      localStorage.clear();
       await router.push({name : "login"});
     };
     const toJournal = async() =>{

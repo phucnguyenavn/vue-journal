@@ -1,4 +1,4 @@
-## Leanrt
+## Learnt
 
 - Not everything is width % base.
 - Plug the cookie in.
@@ -6,6 +6,7 @@
 - Icon inside input (Relative and absolute).
 - import.meta.env.VITE_ just a reminder.
 - * use ref to get DOM , LifeHooks so important!
+- 
 ## Goals
 
 - An app where I can keep track of myself whether it is thought or activity, mood.
@@ -15,11 +16,11 @@
 - ~~Login~~
 - ~~Register~~
 - ~~Think of how to display Journal~~
--- Display Journal
-- User Input
-- AutoSave to IndexedDB
+- Display Journal
+- ~~User Input~~
+- ~~AutoSave to IndexedDB~~
 - Sync back to backend
 
 ## Unknown Problems
--  ~~Emoji picker only responses to negavition.~~
--  The contenteditable hit new line return to the start  
+-  ~~Emoji picker only responses to negavition.~~ Read source code from another lib, found a way out.
+-  ~~The contenteditable hit new line return to the start.~~. Use Ckeditor.
