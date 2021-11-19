@@ -1,6 +1,7 @@
 import customAxios from "../../api/client";
 import { API_LOCATION } from "../../api/ApiLocation";
 import { actionTypes, mutationTypes } from "../store-types";
+import { addDB } from "../db/indexedDB";
 
 export default {
   async [actionTypes.FindUserJournalId](context, payload) {
@@ -19,6 +20,7 @@ export default {
     const userData = {
       userId: payload.userId,
       id: payload.userJournalId,
+      journalLength: payload.journalLength,
     };
 
     await customAxios
@@ -28,14 +30,38 @@ export default {
       )
       .finally(() => context.commit(mutationTypes.IsLoading, false));
   },
-  async [actionTypes.PullJournal](context, payload) {},
+
+  async [actionTypes.PullJournal](context, payload) {
+    const journals = {
+      userId: payload.userId,
+      userJournalId: payload.userJournalId,
+    };
+    await customAxios
+      .post(API_LOCATION.PULL_JOURNAL, journals)
+      .then((res) => {
+        if (res.data.journals.length !== 0) {
+          
+          for (let i = 0; i < res.data.journals.length; i++) {
+            addDB(journals[i]);
+          }
+        }
+      })
+      .catch((err) => console.log(err));
+  },
+
   async [actionTypes.PushJournal](context, payload) {
     const journals = {
-      payload,
+      userId: payload.userId,
+      userJournalId: payload.userJournalId,
+      journals: await payload.journals,
     };
     await customAxios
       .post(API_LOCATION.PUSH_JOURNAL, journals)
-      .then(() => context.commit(mutationTypes.ClearModifiedJournals))
+      .then((res) => {
+        if (res.status === 200) {
+          context.commit(mutationTypes.ClearModifiedJournals);
+        }
+      })
       .catch((err) => console.log(err));
   },
 };

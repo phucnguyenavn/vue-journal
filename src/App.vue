@@ -3,10 +3,28 @@
 </template>
 
 <script>
-import { getDB } from "./store/db/indexedDB";
+import { getDB, getJournals } from "./store/db/indexedDB";
+import { useStore } from "vuex";
+import { computed, watch } from "vue";
+import { actionTypes } from "./store/store-types";
+import { LocalStorage } from "./common/LocalStorage";
 
 export default {
   setup() {
+    const store = useStore();
+    let actionJournalSync = computed(() => store.getters.actionJournalSync);
+    watch(actionJournalSync, (newAction, oldAction) => {
+      if (newAction !== oldAction) {
+        if (actionJournalSync.value === "PUSH") {
+          store.dispatch(actionTypes.PushJournal, {
+            userId: LocalStorage.getUserId,
+            userJournalId: LocalStorage.getUserJournalId,
+            journals: getJournals().then(res => res),
+          });
+        } else if (actionJournalSync.value === "PULL") {
+        }
+      }
+    });
     getDB();
   },
 };

@@ -125,9 +125,6 @@ export default {
     watch([content, title, emoji, mood], (newValue, oldValue) => {
       if (newValue !== oldValue) {
         let journal = {
-          userId: LocalStorage.getUserId || store.getters.userId,
-          userJournalId:
-            LocalStorage.getUserJournalId || store.getters.userJournalId,
           title: title.value,
           content: content.value,
           emoji: emoji.value,

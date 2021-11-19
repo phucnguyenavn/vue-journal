@@ -33,10 +33,13 @@ import { doubleArrowRightSvg, doubleArrowLeftSvg } from "../../common/SvgPath";
 import journalSvg from "../../assets/journal.svg";
 import { $cookies } from "../../plugin/cookies";
 import { useRouter } from "vue-router";
+import { useStore } from 'vuex';
+import { mutationTypes } from '../../store/store-types';
 
 export default {
   props: ["isOpen", "toggle"],
   setup() {
+    const store = useStore();
     const router = useRouter();
     const doubleArrowRight = ref(doubleArrowRightSvg);
     const doubleArrowLeft = ref(doubleArrowLeftSvg);
@@ -47,6 +50,7 @@ export default {
     const logout = async () => {
       await $cookies.remove("token");
       localStorage.clear();
+      store.commit(mutationTypes.SetActionJournalSync,"");
       await router.push({ name: "login" });
     };
     const toJournal = async () => {

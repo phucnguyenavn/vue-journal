@@ -4,8 +4,6 @@ const DB_NAME = "utility-db";
 const DB_VERSION = 1;
 
 interface Journal {
-  userId: Number;
-  userJournalId: Number;
   title: String;
   content: String;
   emoji: String;
@@ -48,6 +46,7 @@ export async function getJournals() {
   const db = await openDB(DB_NAME, DB_VERSION);
   return await db.getAll("journal");
 }
+
 
 export async function mockData() {
   const db = await openDB(DB_NAME, DB_VERSION);
