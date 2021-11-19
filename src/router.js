@@ -6,6 +6,7 @@ import Journal from "./components/page/Journal.vue";
 import Page from "./components/page/Page.vue";
 
 import { $cookies } from "./plugin/cookies";
+import { LocalStorage } from "./common/LocalStorage";
 
 const routes = [
   {
@@ -21,7 +22,7 @@ const routes = [
         meta: { title: "PlaceHolder - Journal" },
         children: [
           {
-            path: "/page/:date",
+            path: "/page/:created",
             component: Page,
             name: "page",
             meta: { title: "PlaceHolder - Journal" },
@@ -51,7 +52,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title;
-  if ((to.name !== "login" && to.name !== "signup") && !isAuthenticated())
+  if (to.name !== "login" && to.name !== "signup" && !isAuthenticated())
     next({ name: "login" });
   else if ((to.name === "login" || to.name === "signup") && isAuthenticated()) {
     next({ name: "home" });
@@ -59,7 +60,7 @@ router.beforeEach((to, from, next) => {
 });
 
 const isAuthenticated = () => {
-  return $cookies.get("token") && localStorage.getItem("user-id");
+  return $cookies.get("token") && LocalStorage.getUserId;
 };
 
 export default router;

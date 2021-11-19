@@ -26,7 +26,6 @@
           minimumView="month"
           inputFormat="MM/yyyy"
           :upper-limit="new Date()"
-          clearable
         />
         <div
           class="
@@ -42,7 +41,7 @@
         >
           <router-link
             class=""
-            :to="{ name: 'page', params: { date: today } }"
+            :to="{ name: 'page', params: { created: today } }"
             @click.prevent="togglePageOpen"
             >New</router-link
           >
@@ -50,11 +49,10 @@
       </div>
 
       <div v-if="!isLoading">
-        <spinner v-if="isLoading" />
         <router-link
           v-for="journal in journals"
           :key="journal"
-          :to="{ name: 'page', params: { date: journal.date } }"
+          :to="{ name: 'page', params: { created: journal.created } }"
           @click.prevent="togglePageOpen"
         >
           <div class="grid grid-cols-3 border-b pt-2 hover:bg-gray-200">
@@ -62,7 +60,7 @@
             <div class="col-start-1 col-end-6 break-words">
               {{ journal.title }}
             </div>
-            <div class="col-start-7 col-end-10">{{ journal.date }}</div>
+            <div class="col-start-7 col-end-10">{{ journal.created }}</div>
           </div>
         </router-link>
       </div>
@@ -75,7 +73,7 @@ import Datepicker from "vue3-datepicker";
 import Page from "./Page.vue";
 import { computed, ref, watch } from "vue";
 import { useStore } from "vuex";
-import { useRouter, useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 import { getJournals } from "../../store/db/indexedDB";
 import { mutationTypes } from "../../store/store-types";
 
@@ -86,9 +84,12 @@ export default {
     const store = useStore();
     const router = useRouter();
     const today = computed(() => store.getters.today);
-    let isLoading = computed(() => store.getters.isLoading);
     const journals = ref();
-    const getJ = async () => {
+    let isLoading = computed(() => store.getters.isLoading);
+    let isPageOpen = ref(false);
+    let dateSelected = ref(new Date());
+
+    const getJournalFromDB = async () => {
       store.commit(mutationTypes.IsLoading, true);
       await getJournals()
         .then((res) => {
@@ -97,8 +98,6 @@ export default {
         .finally(store.commit(mutationTypes.IsLoading, false));
     };
 
-    let isPageOpen = ref(false);
-    let dateSelected = ref();
     const togglePageOpen = () => {
       isPageOpen.value = !isPageOpen.value;
       if (!isPageOpen.value) {
@@ -106,17 +105,18 @@ export default {
       }
     };
     const filterJournal = (ele) => {
-      let date = new Date(ele.date);
-      if (dateSelected.value !== undefined && date.value !== undefined)
+      let date = new Date(ele.created);
+      if (date !== undefined)
         return (
           date.getMonth() === dateSelected.value.getMonth() &&
           date.getFullYear() === dateSelected.value.getFullYear()
         );
     };
     watch([isPageOpen, dateSelected], () => {
-      getJ();
+      getJournalFromDB();
     });
-    getJ();
+    getJournalFromDB();
+
     return {
       isPageOpen,
       togglePageOpen,

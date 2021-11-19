@@ -2,7 +2,7 @@ export default {
   isLoading(state) {
     return state.isLoading;
   },
-  today(state){
+  today(state) {
     return state.today;
-  }
+  },
 };

@@ -75,6 +75,7 @@ import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { getJournal } from "../../store/db/indexedDB";
 import { mutationTypes } from "../../store/store-types";
+import { LocalStorage } from "../../common/LocalStorage";
 
 export default {
   components: { EmoPicker },
@@ -88,12 +89,13 @@ export default {
     let isEmojiOpen = ref(false);
     let content = ref();
     let title = ref();
-    let date = computed(() => route.params.date);
+    let created = computed(() => route.params.created);
     let isLoading = computed(() => store.getters.isLoading);
     let editorConfig = {
       placeholder: "Tell me in details",
       toolbar: { items: [] },
     };
+
     const onClickEmoPicker = (value) => {
       if (value.detail) {
         emoji.value = value.detail.unicode;
@@ -108,7 +110,7 @@ export default {
     };
     const fillJournal = async () => {
       store.commit(mutationTypes.IsLoading, true);
-      await getJournal(date.value)
+      await getJournal(created.value)
         .then((res) => {
           if (res) {
             content.value = res.content;
@@ -121,16 +123,23 @@ export default {
     };
 
     watch([content, title, emoji, mood], (newValue, oldValue) => {
-      if (newValue !== oldValue)
-        addDB(
-          title.value,
-          content.value,
-          emoji.value,
-          date.value,
-          JSON.parse(JSON.stringify(parseInt(mood.value[0])))
-        );
+      if (newValue !== oldValue) {
+        let journal = {
+          userId: LocalStorage.getUserId || store.getters.userId,
+          userJournalId:
+            LocalStorage.getUserJournalId || store.getters.userJournalId,
+          title: title.value,
+          content: content.value,
+          emoji: emoji.value,
+          created: created.value,
+          mood: JSON.parse(JSON.stringify(parseInt(mood.value[0]))),
+        };
+        addDB(journal);
+        store.commit(mutationTypes.AppendModifiedJournals, journal);
+      }
     });
-    watch(date, (newValue, oldValue) => {
+
+    watch(created, (newValue, oldValue) => {
       if (newValue !== oldValue) fillJournal();
     });
 

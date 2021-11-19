@@ -12,10 +12,7 @@
       />
       <span class="absolute z-10 top-1 right-px" @click="toggle">
         <base-svg v-if="isOn" :d="visibilityOn" />
-        <base-svg
-          v-else-if="!isOn"
-          :d="visibilityOff"
-        />
+        <base-svg v-else-if="!isOn" :d="visibilityOff" />
       </span>
     </div>
   </div>

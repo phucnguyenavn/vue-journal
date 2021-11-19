@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed top-0 left-0 h-screen  z-10 bg-gray-100"
+    class="fixed top-0 left-0 h-screen z-10 bg-gray-100"
     :class="{ 'w-32': isOpen, 'w-0': !isOpen }"
   >
     <base-svg
@@ -35,22 +35,22 @@ import { $cookies } from "../../plugin/cookies";
 import { useRouter } from "vue-router";
 
 export default {
-    props : ["isOpen","toggle"],
+  props: ["isOpen", "toggle"],
   setup() {
     const router = useRouter();
     const doubleArrowRight = ref(doubleArrowRightSvg);
     const doubleArrowLeft = ref(doubleArrowLeftSvg);
     const journalImg = ref(journalSvg);
-    
+
     let isCurrent = ref(true);
 
     const logout = async () => {
       await $cookies.remove("token");
       localStorage.clear();
-      await router.push({name : "login"});
+      await router.push({ name: "login" });
     };
-    const toJournal = async() =>{
-      await router.push({name : "journal"})
+    const toJournal = async () => {
+      await router.push({ name: "journal" });
     };
     return {
       doubleArrowRight,
@@ -58,7 +58,7 @@ export default {
       journalImg,
       isCurrent,
       logout,
-      toJournal
+      toJournal,
     };
   },
 };

@@ -11,7 +11,6 @@ import CKEditor from "@ckeditor/ckeditor5-vue";
 import "emoji-picker-element";
 import "./index.css";
 
-
 const app = createApp(App);
 app.use(store);
 app.use(router);
@@ -19,8 +18,6 @@ app.use(CKEditor);
 cookiesInit(app);
 
 app.component("backdrop", Backdrop);
-app.component("base-svg",BaseSvg);
+app.component("base-svg", BaseSvg);
 app.component("spinner", spinner);
 app.mount("#app");
-
-

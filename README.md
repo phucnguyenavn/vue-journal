@@ -4,9 +4,10 @@
 - Plug the cookie in.
 - Debug in vscode is weird.
 - Icon inside input (Relative and absolute).
-- import.meta.env.VITE_ just a reminder.
-- * use ref to get DOM , LifeHooks so important!
-- 
+- import.meta.env.VITE\_ just a reminder.
+- - use ref to get DOM , LifeHooks so important!
+-
+
 ## Goals
 
 - An app where I can keep track of myself whether it is thought or activity, mood.
@@ -22,6 +23,7 @@
 - Sync back to backend
 
 ## Unknown Problems
--  ~~Emoji picker only responses to negavition.~~ Read source code from another lib, found a way out.
--  ~~The contenteditable hit new line return to the start.~~. Use Ckeditor.
-- ~~Idb doesnt run upgrade().~~ Stupid me, run openDB in global var. 
+
+- ~~Emoji picker only responses to negavition.~~ Read source code from another lib, found a way out.
+- ~~The contenteditable hit new line return to the start.~~. Use Ckeditor.
+- ~~Idb doesnt run upgrade().~~ Stupid me, run openDB in global var.

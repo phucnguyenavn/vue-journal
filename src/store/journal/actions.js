@@ -23,14 +23,19 @@ export default {
 
     await customAxios
       .post(API_LOCATION.INSTRUCT_JOURNAL_SYNC, userData)
-      .then((res) => {
-        context.commit(
-          mutationTypes.SetActionJournalSync,
-          res.data.instruction
-        ),
-          console.log(res.data.instruction);
-      })
+      .then((res) =>
+        context.commit(mutationTypes.SetActionJournalSync, res.data.instruction)
+      )
       .finally(() => context.commit(mutationTypes.IsLoading, false));
   },
   async [actionTypes.PullJournal](context, payload) {},
+  async [actionTypes.PushJournal](context, payload) {
+    const journals = {
+      payload,
+    };
+    await customAxios
+      .post(API_LOCATION.PUSH_JOURNAL, journals)
+      .then(() => context.commit(mutationTypes.ClearModifiedJournals))
+      .catch((err) => console.log(err));
+  },
 };

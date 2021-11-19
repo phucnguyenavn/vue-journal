@@ -3,13 +3,21 @@ import { openDB } from "idb";
 const DB_NAME = "utility-db";
 const DB_VERSION = 1;
 
+interface Journal {
+  userId: Number;
+  userJournalId: Number;
+  title: String;
+  content: String;
+  emoji: String;
+  created: Date;
+  mood: Number;
+}
 
 export async function getDB() {
-   await openDB(DB_NAME, DB_VERSION, {
+  await openDB(DB_NAME, DB_VERSION, {
     upgrade(db, oldVersion) {
-      console.log(oldVersion);
       if (oldVersion < 1) {
-        db.createObjectStore("journal", { keyPath: "date" });
+        db.createObjectStore("journal", { keyPath: "created" });
       }
     },
     blocked() {
@@ -22,24 +30,11 @@ export async function getDB() {
       console.log("terminated");
     },
   });
-  
 }
 
-export async function addDB(
-  title: String,
-  content: String,
-  emoji: String,
-  date: Date,
-  mood: Number
-) {
+export async function addDB(journal: Journal) {
   const db = await openDB(DB_NAME, DB_VERSION);
-  await db.put("journal", {
-    title: title,
-    content: content,
-    emoji: emoji,
-    date: date,
-    mood: mood,
-  });
+  await db.put("journal", journal);
 }
 
 export async function getJournal(key: Date) {
