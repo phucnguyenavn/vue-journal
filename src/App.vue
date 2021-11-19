@@ -6,13 +6,13 @@
 
 <script>
 
-import {getDB, mockData} from "./store/db/indexedDB"
+import {getDB} from "./store/db/indexedDB"
 
 export default {
 
   setup() {
       getDB();
-      mockData();
+  
   },
 };
 </script>

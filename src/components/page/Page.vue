@@ -42,7 +42,7 @@
           <div v-else class="opacity-50 text-xs border-b-2">emoji...</div>
         </button>
         <emo-picker
-          class="bottom-20 right-40 relative"
+          class="bottom-40 right-88 fixed z-30"
           v-on:emoji-click="onClickEmoPicker"
           v-if="isEmojiOpen"
         />
@@ -72,7 +72,7 @@ import EmoPicker from "../UI/EmoPicker.vue";
 import BalloonEditor from "@ckeditor/ckeditor5-build-balloon";
 import { addDB } from "../../store/db/indexedDB";
 import { useStore } from "vuex";
-import { useRouter, useRoute } from "vue-router";
+import { useRoute } from "vue-router";
 import { getJournal } from "../../store/db/indexedDB";
 import { mutationTypes } from "../../store/store-types";
 
@@ -110,10 +110,12 @@ export default {
       store.commit(mutationTypes.IsLoading, true);
       await getJournal(date.value)
         .then((res) => {
-          content.value = res.content;
-          mood.value[0] = res.mood;
-          emoji.value = res.emoji;
-          title.value = res.title;
+          if (res) {
+            content.value = res.content;
+            mood.value[0] = res.mood;
+            emoji.value = res.emoji;
+            title.value = res.title;
+          }
         })
         .finally(store.commit(mutationTypes.IsLoading, false));
     };

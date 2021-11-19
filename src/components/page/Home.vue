@@ -4,6 +4,7 @@
 </template>
 
 <script>
+
 import SideNavbar from "../layout/SideNavbar.vue";
 import Journal from "./Journal.vue";
 import { ref } from "vue";

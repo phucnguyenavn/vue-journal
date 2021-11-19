@@ -25,7 +25,7 @@
           v-model="dateSelected"
           minimumView="month"
           inputFormat="MM/yyyy"
-          :upperLimit="new Date()"
+          :upper-limit="new Date()"
           clearable
         />
         <div
@@ -90,7 +90,7 @@ export default {
     const journals = ref();
     const getJ = async () => {
       store.commit(mutationTypes.IsLoading, true);
-      return await getJournals()
+      await getJournals()
         .then((res) => {
           journals.value = res.filter((ele) => filterJournal(ele));
         })
@@ -98,7 +98,7 @@ export default {
     };
 
     let isPageOpen = ref(false);
-    let dateSelected = ref(new Date());
+    let dateSelected = ref();
     const togglePageOpen = () => {
       isPageOpen.value = !isPageOpen.value;
       if (!isPageOpen.value) {
@@ -107,7 +107,7 @@ export default {
     };
     const filterJournal = (ele) => {
       let date = new Date(ele.date);
-      if (dateSelected.value !== null)
+      if (dateSelected.value !== undefined && date.value !== undefined)
         return (
           date.getMonth() === dateSelected.value.getMonth() &&
           date.getFullYear() === dateSelected.value.getFullYear()

@@ -26,7 +26,7 @@ import PasswordInput from "../UI/auth/PasswordInput.vue";
 import EmailInput from "../UI/auth/EmailInput.vue";
 import AuthButton from "../UI/auth/AuthButton.vue";
 import { actionTypes } from "../../store/store-types";
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 
 export default {
   components: { PasswordInput, EmailInput, AuthButton },
@@ -43,8 +43,15 @@ export default {
           email: enteredEmail.value,
           password: enteredPassword.value,
         });
-        await store.dispatch(actionTypes.FindUserJournalId,store.getters.userId);
-        await router.push({name : "home"});
+        await store.dispatch(
+          actionTypes.FindUserJournalId,
+          store.getters.userId
+        );
+        await store.dispatch(actionTypes.InstructJournalSync, {
+          userId: localStorage.getItem("user-id"),
+          userJournalId: localStorage.getItem("user-journal-id"),
+        });
+        await router.push({ name: "home" });
       } catch (err) {
         isError.value = true;
       }

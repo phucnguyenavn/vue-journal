@@ -16,7 +16,7 @@
 - ~~Login~~
 - ~~Register~~
 - ~~Think of how to display Journal~~
-- Display Journal
+- ~~Display Journal~~
 - ~~User Input~~
 - ~~AutoSave to IndexedDB~~
 - Sync back to backend
@@ -24,3 +24,4 @@
 ## Unknown Problems
 -  ~~Emoji picker only responses to negavition.~~ Read source code from another lib, found a way out.
 -  ~~The contenteditable hit new line return to the start.~~. Use Ckeditor.
+- ~~Idb doesnt run upgrade().~~ Stupid me, run openDB in global var. 
