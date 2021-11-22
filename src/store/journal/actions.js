@@ -17,14 +17,13 @@ export default {
   },
 
   async [actionTypes.InstructJournalSync](context, payload) {
-    const userData = {
-      userId: payload.userId,
-      id: payload.userJournalId,
+    const userJournal = {
+      syncIdDto: payload.syncId,
       journalLength: payload.journalLength,
     };
 
     await customAxios
-      .post(API_LOCATION.INSTRUCT_JOURNAL_SYNC, userData)
+      .post(API_LOCATION.INSTRUCT_JOURNAL_SYNC, userJournal)
       .then((res) =>
         context.commit(mutationTypes.SetActionJournalSync, res.data.instruction)
       )
@@ -32,17 +31,13 @@ export default {
   },
 
   async [actionTypes.PullJournal](context, payload) {
-    const journals = {
-      userId: payload.userId,
-      userJournalId: payload.userJournalId,
-    };
     await customAxios
-      .post(API_LOCATION.PULL_JOURNAL, journals)
+      .post(API_LOCATION.PULL_JOURNAL, payload.syncId)
       .then((res) => {
-        if (res.data.journals.length !== 0) {
-          
-          for (let i = 0; i < res.data.journals.length; i++) {
-            addDB(journals[i]);
+        if (res.data !== undefined) {
+          for (let i = 0; i < res.data.length; i++) {
+            addDB(res.data[i]);
+            console.log(res.data);
           }
         }
       })
@@ -50,13 +45,12 @@ export default {
   },
 
   async [actionTypes.PushJournal](context, payload) {
-    const journals = {
-      userId: payload.userId,
-      userJournalId: payload.userJournalId,
+    const userJournal = {
+      syncIdDto: payload.syncId,
       journals: await payload.journals,
     };
     await customAxios
-      .post(API_LOCATION.PUSH_JOURNAL, journals)
+      .post(API_LOCATION.PUSH_JOURNAL, userJournal)
       .then((res) => {
         if (res.status === 200) {
           context.commit(mutationTypes.ClearModifiedJournals);

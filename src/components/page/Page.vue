@@ -25,11 +25,11 @@
             class="overflow-hidden h-7 text-center outline-none"
             multiple
           >
-            <option class="ratings bg-1" value="1"></option>
-            <option class="ratings bg-2" value="2"></option>
-            <option class="ratings bg-3" value="3"></option>
-            <option class="ratings bg-4" value="4"></option>
-            <option class="ratings bg-5" value="5"></option>
+            <option class="ratings bg-1" value="HORRIBLE"></option>
+            <option class="ratings bg-2" value="BAD"></option>
+            <option class="ratings bg-3" value="OK"></option>
+            <option class="ratings bg-4" value="GOOD"></option>
+            <option class="ratings bg-5" value="AWESOME"></option>
           </select>
         </div>
       </div>
@@ -75,7 +75,7 @@ import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { getJournal } from "../../store/db/indexedDB";
 import { mutationTypes } from "../../store/store-types";
-import { LocalStorage } from "../../common/LocalStorage";
+
 
 export default {
   components: { EmoPicker },
@@ -113,7 +113,7 @@ export default {
       await getJournal(created.value)
         .then((res) => {
           if (res) {
-            content.value = res.content;
+            content.value = res.content||"";
             mood.value[0] = res.mood;
             emoji.value = res.emoji;
             title.value = res.title;
@@ -129,10 +129,11 @@ export default {
           content: content.value,
           emoji: emoji.value,
           created: created.value,
-          mood: JSON.parse(JSON.stringify(parseInt(mood.value[0]))),
+          mood: mood.value[0],
         };
         addDB(journal);
         store.commit(mutationTypes.AppendModifiedJournals, journal);
+       
       }
     });
 

@@ -7,7 +7,7 @@ import { getDB, getJournals } from "./store/db/indexedDB";
 import { useStore } from "vuex";
 import { computed, watch } from "vue";
 import { actionTypes } from "./store/store-types";
-import { LocalStorage } from "./common/LocalStorage";
+import {journalSync}  from "./common/LocalStorage";
 
 export default {
   setup() {
@@ -17,11 +17,13 @@ export default {
       if (newAction !== oldAction) {
         if (actionJournalSync.value === "PUSH") {
           store.dispatch(actionTypes.PushJournal, {
-            userId: LocalStorage.getUserId,
-            userJournalId: LocalStorage.getUserJournalId,
-            journals: getJournals().then(res => res),
+            syncId: journalSync,
+            journals: getJournals().then((res) => res),
           });
         } else if (actionJournalSync.value === "PULL") {
+          store.dispatch(actionTypes.PullJournal, {
+            syncId: journalSync,
+          });
         }
       }
     });
