@@ -12,4 +12,13 @@
         bg-gray-100
         text-sm;
   }
+  .ratings {
+    @apply w-7 h-7
+        inline-block
+        cursor-pointer
+        text-white
+        rounded-md
+        bg-contain
+        mx-0.5;
+  }
 }

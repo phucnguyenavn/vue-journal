@@ -37,6 +37,7 @@ export default {
     let enteredPassword = ref("");
     let isError = ref(false);
     let isLoading = computed(() => store.getters.isLoading);
+
     const submitRegistration = async () => {
       validate();
       try {

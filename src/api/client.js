@@ -10,7 +10,7 @@ customAxios.defaults.headers = {
 
 customAxios.interceptors.request.use((request) => {
   const token = $cookies.get("token");
-  request.headers.Authorization = token ? "Bearer " + token : "";
+  request.headers.Authorization = token ? token : "";
   return request;
 });
 

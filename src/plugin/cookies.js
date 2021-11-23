@@ -4,7 +4,7 @@ let $cookies;
 
 export default (app) => {
   app.use(VueCookies, {
-    expireTimes: "7d",
+    expireTimes: "30d",
     secure: true,
   });
   VueCookies.install(app);

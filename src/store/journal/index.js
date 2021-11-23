@@ -5,7 +5,9 @@ import mutations from "./mutations";
 export default {
   state() {
     return {
-      userId: localStorage.getItem("user-id"),
+      userJournalId: localStorage.getItem("user-journal-id"),
+      actionJournalSync: "",
+      modifiedJournals: new Map(),
     };
   },
   actions,
