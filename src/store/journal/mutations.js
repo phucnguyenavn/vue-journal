@@ -9,10 +9,9 @@ export default {
     state.actionJournalSync = payload;
   },
   [mutationTypes.AppendModifiedJournals](state, payload) {
-    console.log(payload);
-    state.modifiedJournals.push(payload);
+    state.modifiedJournals.set(payload.created, payload);
   },
   [mutationTypes.ClearModifiedJournals](state) {
-    state.modifiedJournals = [];
+    state.modifiedJournals = new Map();
   },
 };

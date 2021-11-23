@@ -1,4 +1,3 @@
-import { LocalStorage } from "../../common/LocalStorage";
 import actions from "./actions";
 import getters from "./getters";
 import mutations from "./mutations";
@@ -6,9 +5,9 @@ import mutations from "./mutations";
 export default {
   state() {
     return {
-      userJournalId: LocalStorage.getUserJournalId,
+      userJournalId: localStorage.getItem("user-journal-id"),
       actionJournalSync: "",
-      modifiedJournals: [],
+      modifiedJournals: new Map(),
     };
   },
   actions,

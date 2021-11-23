@@ -4,9 +4,9 @@
 - Plug the cookie in.
 - Debug in vscode is weird.
 - Icon inside input (Relative and absolute).
-- import.meta.env.VITE\_ just a reminder.
-- - use ref to get DOM , LifeHooks so important!
--
+- import.meta.env.VITE just a reminder.
+- - Use ref to get DOM , LifeHooks so important!
+- Stop making thing more complicated as it is.
 
 ## Goals
 
@@ -20,7 +20,7 @@
 - ~~Display Journal~~
 - ~~User Input~~
 - ~~AutoSave to IndexedDB~~
-- Sync back to backend
+- ~~Sync back to backend~~
 
 ## Unknown Problems
 

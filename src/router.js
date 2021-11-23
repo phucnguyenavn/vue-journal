@@ -6,7 +6,6 @@ import Journal from "./components/page/Journal.vue";
 import Page from "./components/page/Page.vue";
 
 import { $cookies } from "./plugin/cookies";
-import { LocalStorage } from "./common/LocalStorage";
 
 const routes = [
   {
@@ -59,8 +58,8 @@ router.beforeEach((to, from, next) => {
   } else next();
 });
 
-const isAuthenticated = () => {
-  return $cookies.get("token") && LocalStorage.getUserId;
+export const isAuthenticated = () => {
+  return $cookies.get("token") && localStorage.getItem("user-id");
 };
 
 export default router;

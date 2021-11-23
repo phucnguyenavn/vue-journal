@@ -76,7 +76,6 @@ import { useRoute } from "vue-router";
 import { getJournal } from "../../store/db/indexedDB";
 import { mutationTypes } from "../../store/store-types";
 
-
 export default {
   components: { EmoPicker },
   emits: ["togglePageOpen"],
@@ -113,7 +112,7 @@ export default {
       await getJournal(created.value)
         .then((res) => {
           if (res) {
-            content.value = res.content||"";
+            content.value = res.content || "";
             mood.value[0] = res.mood;
             emoji.value = res.emoji;
             title.value = res.title;
@@ -133,7 +132,6 @@ export default {
         };
         addDB(journal);
         store.commit(mutationTypes.AppendModifiedJournals, journal);
-       
       }
     });
 

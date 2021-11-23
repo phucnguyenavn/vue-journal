@@ -33,8 +33,8 @@ import { doubleArrowRightSvg, doubleArrowLeftSvg } from "../../common/SvgPath";
 import journalSvg from "../../assets/journal.svg";
 import { $cookies } from "../../plugin/cookies";
 import { useRouter } from "vue-router";
-import { useStore } from 'vuex';
-import { mutationTypes } from '../../store/store-types';
+import { useStore } from "vuex";
+import { actionTypes, mutationTypes } from "../../store/store-types";
 
 export default {
   props: ["isOpen", "toggle"],
@@ -48,9 +48,16 @@ export default {
     let isCurrent = ref(true);
 
     const logout = async () => {
+      await store.dispatch(actionTypes.PushJournal, {
+        syncId: {
+          userId: store.getters.userId,
+          id: store.getters.userJournalId,
+        },
+        journals: store.getters.modifiedJournals.values(),
+      });
       await $cookies.remove("token");
       localStorage.clear();
-      store.commit(mutationTypes.SetActionJournalSync,"");
+      store.commit(mutationTypes.SetActionJournalSync, "");
       await router.push({ name: "login" });
     };
     const toJournal = async () => {

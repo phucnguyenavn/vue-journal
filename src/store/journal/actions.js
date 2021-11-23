@@ -47,15 +47,18 @@ export default {
   async [actionTypes.PushJournal](context, payload) {
     const userJournal = {
       syncIdDto: payload.syncId,
-      journals: await payload.journals,
+      journals: JSON.parse(JSON.stringify(Array.from(payload.journals))),
     };
-    await customAxios
-      .post(API_LOCATION.PUSH_JOURNAL, userJournal)
-      .then((res) => {
-        if (res.status === 200) {
-          context.commit(mutationTypes.ClearModifiedJournals);
-        }
-      })
-      .catch((err) => console.log(err));
+    console.log(userJournal.journals);
+    if (userJournal.journals.length !== 0) {
+      await customAxios
+        .post(API_LOCATION.PUSH_JOURNAL, userJournal)
+        .then((res) => {
+          if (res.status === 200) {
+            context.commit(mutationTypes.ClearModifiedJournals);
+          }
+        })
+        .catch((err) => console.log(err));
+    }
   },
 };

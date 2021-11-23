@@ -8,4 +8,7 @@ export default {
   modifiedJournals(state) {
     return state.modifiedJournals;
   },
+  journalSync(state) {
+    return state.journalSync;
+  },
 };
