@@ -21,7 +21,9 @@
 - ~~User Input~~
 - ~~AutoSave to IndexedDB~~
 - ~~Sync back to backend~~
-
+- Plan how would todo and pomodoro work
+- Todo
+- Pomodoro  
 ## Unknown Problems
 
 - ~~Emoji picker only responses to negavition.~~ Read source code from another lib, found a way out.

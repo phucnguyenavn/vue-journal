@@ -14,15 +14,19 @@ export default {
   setup() {
     const store = useStore();
     let actionJournalSync = computed(() => store.getters.actionJournalSync);
+
     watch(actionJournalSync, (newAction, oldAction) => {
+      console.log(newAction);
       if (newAction !== oldAction) {
+        const syncId = {
+          userId: store.getters.userId,
+          id: store.getters.userJournalId,
+        };
+        console.log(syncId);
         if (actionJournalSync.value === "PUSH") {
-          store.dispatch(actionTypes.PushJournal, {
-            syncId: {
-              userId: store.getters.userId,
-              id: store.getters.userJournalId,
-            },
-            journals: getJournals().then((res) => res),
+           store.dispatch(actionTypes.PushJournal, {
+            syncId: syncId,
+            journals: getJournals().then((res) => res),         
           });
         } else if (actionJournalSync.value === "PULL") {
           store.dispatch(actionTypes.PullJournal, {
@@ -31,14 +35,15 @@ export default {
         }
       }
     });
-    const push = (e) => {
+    const push = async () => {
       if (isAuthenticated) {
-        store.dispatch(actionTypes.PushJournal, {
-          syncId: {
-            userId: store.getters.userId,
-            id: store.getters.userJournalId,
-          },
-          journals: Array.from(store.getters.modifiedJournals.values()),
+        const syncId = {
+          userId: store.getters.userId,
+          id: store.getters.userJournalId,
+        };
+        await store.dispatch(actionTypes.PushJournal, {
+          syncId: syncId,
+          journals: store.getters.modifiedJournals.values(),
         });
       }
     };
@@ -46,11 +51,6 @@ export default {
       push();
     }, 5 * 60 * 1000);
 
-         window.addEventListener("beforeunload", (e) =>{
-      push(e);
-      e.preventDefault();
-      e.returnValue = "";
-    }); 
     getDB();
   },
 };

@@ -45,11 +45,12 @@ export default {
   },
 
   async [actionTypes.PushJournal](context, payload) {
+    let journals = await payload.journals;
+    console.log(journals);
     const userJournal = {
       syncIdDto: payload.syncId,
-      journals: JSON.parse(JSON.stringify(Array.from(payload.journals))),
+      journals:  JSON.parse(JSON.stringify(Array.from(journals))),
     };
-    console.log(userJournal.journals);
     if (userJournal.journals.length !== 0) {
       await customAxios
         .post(API_LOCATION.PUSH_JOURNAL, userJournal)

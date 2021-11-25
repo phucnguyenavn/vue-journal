@@ -47,7 +47,7 @@ export async function getJournals() {
   return await db.getAll("journal");
 }
 
-export async function mockData() {
+/* export async function mockData() {
   const db = await openDB(DB_NAME, DB_VERSION);
   for (let i = 1; i < 30; i++) {
     let d = new Date();
@@ -61,4 +61,4 @@ export async function mockData() {
       mood: 1,
     });
   }
-}
+} */
