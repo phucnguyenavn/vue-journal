@@ -21,4 +21,7 @@
         bg-contain
         mx-0.5;
   }
+  .side-nav-bar {
+    @apply w-full font-medium cursor-pointer border-b inline-block;
+  }
 }

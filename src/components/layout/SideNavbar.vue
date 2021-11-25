@@ -15,13 +15,23 @@
       class="cursor-pointer"
       @click="toggle"
     />
-    <div v-if="isOpen">
+    <div v-if="isOpen" class="border shadow-xl h-screen">
       <div class="underline text-xs cursor-pointer w-12" @Click="logout">
         Log out
       </div>
-      <div class="m-7 font-medium cursor-pointer" @click="toJournal">
-        <div class="inline-block"><img :src="journalImg" class="w-3.5" /></div>
-        <div class="inline-block">Journal</div>
+      <div class="mt-10 side-nav-bar">
+        <div class="mx-4" @click="toJournal">
+          <div class="inline-block">
+            <img :src="journalImg" class="w-3.5" />
+          </div>
+          <div class="inline-block">&ensp;Journal</div>
+        </div>
+      </div>
+      <div class="mt-2 side-nav-bar">
+        <div class="mx-4" @click="toDoDo">
+          <div class="inline-block"><img :src="todoImg" class="w-3.5" /></div>
+          <div class="inline-block">&ensp;ToDo</div>
+        </div>
       </div>
     </div>
   </div>
@@ -31,6 +41,7 @@
 import { ref } from "vue";
 import { doubleArrowRightSvg, doubleArrowLeftSvg } from "../../common/SvgPath";
 import journalSvg from "../../assets/journal.svg";
+import todo from "../../assets/todo.png";
 import { $cookies } from "../../plugin/cookies";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -44,7 +55,7 @@ export default {
     const doubleArrowRight = ref(doubleArrowRightSvg);
     const doubleArrowLeft = ref(doubleArrowLeftSvg);
     const journalImg = ref(journalSvg);
-
+    const todoImg = ref(todo);
     let isCurrent = ref(true);
 
     const logout = async () => {
@@ -68,6 +79,7 @@ export default {
       doubleArrowLeft,
       journalImg,
       isCurrent,
+      todoImg,
       logout,
       toJournal,
     };

@@ -48,8 +48,11 @@ export default {
       }
     };
     setInterval(() => {
-      push();
-    }, 5 * 60 * 1000);
+      let date = new Date();
+      if(date.getMinutes() %5 ==0){
+        push();
+      }     
+    },60 * 1000);
 
     getDB();
   },
