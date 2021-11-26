@@ -4,11 +4,8 @@
     @togglePageOpen="togglePageOpen"
     v-if="isPageOpen"
   />
-  <div
-    class="mt-6"
-    :class="{ 'w-3/4 ml-40 ': isOpen, 'w-10/12 mx-auto': !isOpen }"
-  >
-    <div class="text-lg font-bold">Journal</div>
+  <close-open-nav :isOpen="isOpen">
+    <template v-slot:title> Journal </template>
     <div class="mt-6 text-xs">
       <div class="border-b flex pb-1">
         <datepicker
@@ -65,7 +62,7 @@
         </router-link>
       </div>
     </div>
-  </div>
+  </close-open-nav>
 </template>
 
 <script>
@@ -76,9 +73,10 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { getJournals } from "../../store/db/indexedDB";
 import { mutationTypes } from "../../store/store-types";
+import CloseOpenNav from "../UI/common/CloseOpenNav.vue";
 
 export default {
-  components: { Page, Datepicker },
+  components: { Page, Datepicker, CloseOpenNav },
   props: ["isOpen"],
   setup() {
     const store = useStore();

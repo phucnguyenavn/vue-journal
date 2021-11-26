@@ -4,6 +4,7 @@ import Registration from "./components/page/Registration.vue";
 import Home from "./components/page/Home.vue";
 import Journal from "./components/page/Journal.vue";
 import Page from "./components/page/Page.vue";
+import ToDo from "./components/page/ToDo.vue"
 
 import { $cookies } from "./plugin/cookies";
 
@@ -12,35 +13,41 @@ const routes = [
     path: "/",
     component: Home,
     name: "home",
-    meta: { title: "PlaceHolder - Home" },
+    meta: { title: " Home" },
     children: [
       {
         path: "journal",
         component: Journal,
         name: "journal",
-        meta: { title: "PlaceHolder - Journal" },
+        meta: { title: " Journal" },
         children: [
           {
             path: "/page/:created",
             component: Page,
             name: "page",
-            meta: { title: "PlaceHolder - Journal" },
+            meta: { title: " Journal" },
           },
         ],
       },
+      {
+        path: "todo",
+        component: ToDo,
+        name: "todo",
+        meta: {title:"Todo"}
+      }
     ],
   },
   {
     path: "/login",
     component: Login,
     name: "login",
-    meta: { title: "PlaceHolder - Login" },
+    meta: { title: " Login" },
   },
   {
     path: "/signup",
     component: Registration,
     name: "signup",
-    meta: { title: "PlaceHolder - Registration" },
+    meta: { title: " Registration" },
   },
 ];
 

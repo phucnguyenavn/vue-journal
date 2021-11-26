@@ -16,6 +16,7 @@
     "vue-router": "^4.0.12",
     "vue3-cookies": "^1.0.1",
     "vue3-datepicker": "^0.2.5",
+    "vuedraggable": "^4.1.0",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
