@@ -4,7 +4,7 @@ import Registration from "./components/page/Registration.vue";
 import Home from "./components/page/Home.vue";
 import Journal from "./components/page/Journal.vue";
 import Page from "./components/page/Page.vue";
-import ToDo from "./components/page/ToDo.vue"
+import ToDo from "./components/page/todo/ToDo.vue"
 
 import { $cookies } from "./plugin/cookies";
 

@@ -11,11 +11,21 @@ interface Journal {
   mood: Number;
 }
 
+interface ToDo {
+  name : String;
+  description : String;
+  isHighIntensity : Boolean;
+  isDone : Boolean;
+  priority : String;
+  subTask : []
+}
+
 export async function getDB() {
   await openDB(DB_NAME, DB_VERSION, {
     upgrade(db, oldVersion) {
       if (oldVersion < 1) {
         db.createObjectStore("journal", { keyPath: "created" });
+        db.createObjectStore("todo", {autoIncrement: true});
       }
     },
     blocked() {
@@ -30,7 +40,7 @@ export async function getDB() {
   });
 }
 
-export async function addDB(journal: Journal) {
+export async function addJournal(journal: Journal) {
   const db = await openDB(DB_NAME, DB_VERSION);
   await db.put("journal", journal);
 }
@@ -45,6 +55,11 @@ export async function getJournal(key: Date) {
 export async function getJournals() {
   const db = await openDB(DB_NAME, DB_VERSION);
   return await db.getAll("journal");
+}
+
+export async function addDB(todo : ToDo){
+  const db = await openDB(DB_NAME, DB_VERSION);
+  await db.put("todo", todo);
 }
 
 /* export async function mockData() {

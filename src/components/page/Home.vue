@@ -11,7 +11,7 @@ import { ref } from "vue";
 export default {
   components: { SideNavbar, Journal },
   setup() {
-    let isOpen = ref(true);
+    let isOpen = ref(false);
 
     const toggle = () => {
       isOpen.value = !isOpen.value;

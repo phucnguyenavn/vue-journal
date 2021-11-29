@@ -20,7 +20,7 @@
         Log out
       </div>
       <div class="mt-10 side-nav-bar" @click="toJournal">
-        <div class="mx-4">
+        <div class="mx-5">
           <div class="inline-block">
             <img :src="journalImg" class="w-3.5" />
           </div>
@@ -29,16 +29,16 @@
       </div>
 
       <div class="mt-2 side-nav-bar" @click="toToDo">
-        <div class="mx-4">
+        <div class="mx-5">
           <div class="inline-block"><img :src="todoImg" class="w-3.5" /></div>
           <div class="inline-block">&ensp;ToDo</div>
         </div>
       </div>
 
       <div class="mt-2 side-nav-bar">
-        <div class="inline-block opacity-50 px-0.5" @click="toggleSubPomodoro">
-          <div v-if="!isSubPomodoroOpen" class="inline-block">+</div>
-          <div class="inline-block text-xs" v-else>&mdash;</div>
+        <div class="inline-block opacity-60 " @click="toggleSubPomodoro">
+          <div v-if="!isSubPomodoroOpen" class="inline-block">&plus;&ensp;</div>
+          <div class="inline-block text-xs px-0.5" v-else>&mdash;&ensp;</div>
         </div>
 
         <div class="inline-block" @click="toPomodoro">
@@ -47,9 +47,9 @@
           </div>
           <div class="inline-block">&ensp;Pomodoro</div>
         </div>
-        <div class="mx-4 text-xs" v-if="isSubPomodoroOpen">
+        <div class="mx-5 text-xs" v-if="isSubPomodoroOpen">
           <div class="inline-block border-b">&mdash;&ensp;Settings</div>
-          <div class="inline-block border-b">&mdash;&ensp;History</div>
+          <div class="inline-block ">&mdash;&ensp;History</div>
         </div>
       </div>
     </div>

@@ -3,20 +3,7 @@
     v-if="isPageOpen"
     @click.prevent="$emit('togglePageOpen', $event)"
   />
-  <div
-    v-if="isPageOpen"
-    class="
-      fixed
-      w-3/4
-      mx-auto
-      inset-x-0
-      h-5/6
-      top-12
-      z-20
-      bg-white
-      overflow-y-auto
-    "
-  >
+  <div v-if="isPageOpen" class="input">
     <div v-if="!isLoading">
       <div class="w-3/4 mx-auto border-b pb-1">
         <div class="mx-auto w-1/3 mt-3">
@@ -70,7 +57,7 @@
 import { computed, ref, watch } from "vue";
 import EmoPicker from "../UI/EmoPicker.vue";
 import BalloonEditor from "@ckeditor/ckeditor5-build-balloon";
-import { addDB } from "../../store/db/indexedDB";
+import { addJournal } from "../../store/db/indexedDB";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { getJournal } from "../../store/db/indexedDB";
@@ -130,7 +117,7 @@ export default {
           created: created.value,
           mood: mood.value[0],
         };
-        addDB(journal);
+        addJournal(journal);
         store.commit(mutationTypes.AppendModifiedJournals, journal);
       }
     });
