@@ -1,7 +1,7 @@
 <template>
   <close-open-nav :isOpen="isOpen">
     <template v-slot:title> Todo </template>
-    <div class="text-xs opacity-60 mt-4 hover:text-red-600">
+    <div class="text-xs opacity-60 mt-4 hover:text-red-600 w-10">
       <button
         @click.prevent="toggleNewTask"
         

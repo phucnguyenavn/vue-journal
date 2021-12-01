@@ -48,6 +48,10 @@ module.exports = {
       amber: colors.amber,
       green: colors.green,
     },
+    minHeight : {
+      '100px': '100px',
+      "25px" : "25px"
+    }
   },
   variants: {
     extend: {

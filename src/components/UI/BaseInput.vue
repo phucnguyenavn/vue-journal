@@ -1,26 +1,25 @@
 <template>
-  <div>
-    <textarea
-     :value="value"
-      @input="$emit('update:value', $event.target.value)"
-      class="
-        w-full
-        resize-none
-        outline-none
-        whitespace-pre-line
-        overflow-hidden
-      "
-      ref="textarea"
-      :oninput="autoGrow"
-      :placeholder="placeholder"
-    />
-  </div>
+  <textarea
+    :value="value"
+    @input="$emit('update:value', $event.target.value)"
+    class="
+      w-full
+      resize-none
+      outline-none
+      whitespace-pre-line
+      overflow-hidden
+      text-sm
+    "
+    ref="textarea"
+    :oninput="autoGrow"
+    :placeholder="placeholder"
+  />
 </template>
 
 <script>
 import { computed, ref } from "vue";
 export default {
-  props: ["placeholder", "value","placeholder"],
+  props: ["placeholder", "value", "placeholder"],
   setup() {
     const textarea = ref(null);
     const textareaEle = computed(() => textarea.value);
