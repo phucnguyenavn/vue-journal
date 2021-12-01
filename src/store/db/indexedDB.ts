@@ -57,7 +57,7 @@ export async function getJournals() {
   return await db.getAll("journal");
 }
 
-export async function addDB(todo : ToDo){
+export async function addToDo(todo : ToDo){
   const db = await openDB(DB_NAME, DB_VERSION);
   await db.put("todo", todo);
 }

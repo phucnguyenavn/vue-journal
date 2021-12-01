@@ -1,20 +1,27 @@
 <template>
-   <backdrop
-    v-if="isNewTaskOpen"
-    @click.prevent="$emit('toggleNewTask', $event)"
-  />
-  <div class="input" >
+  <div class="w-96 border">
+    <form @click.prevent="submitTask" class="">
+      <div class="name w-full bg-gray-50 outline-none resize-none overflow-hidden h-auto" contenteditable="true" placeholder="task name">
 
+      </div>
+      <div>
+        <input class="w-full bg-gray-50 outline-none" placeholder="task desp" />
+      </div>
+      <div>
+        <select></select>
+      </div>
+    </form>
   </div>
 </template>
 
 <script lang="ts">
 export default {
-     emits: ["toggleNewTask"],
-     props: ["isNewTaskOpen"],
-    setup(){
-
-    }
-}
+  setup() {},
+};
 </script>
-
+<style scoped>
+.name[contentEditable="true"]:empty:not(:focus):before {
+  content: attr(placeholder);
+  opacity: 50%;
+}
+</style>

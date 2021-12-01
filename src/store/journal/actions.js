@@ -1,7 +1,7 @@
 import customAxios from "../../api/client";
 import { API_LOCATION } from "../../api/ApiLocation";
 import { actionTypes, mutationTypes } from "../store-types";
-import { addDB } from "../db/indexedDB";
+import { addJournal } from "../db/indexedDB";
 
 export default {
   async [actionTypes.FindUserJournalId](context, payload) {
@@ -36,7 +36,7 @@ export default {
       .then((res) => {
         if (res.data !== undefined) {
           for (let i = 0; i < res.data.length; i++) {
-            addDB(res.data[i]);
+            addJournal(res.data[i]);
             console.log(res.data);
           }
         }

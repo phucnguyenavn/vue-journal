@@ -26,7 +26,7 @@
           <div v-if="emoji">
             {{ emoji }}
           </div>
-          <div v-else class="opacity-50 text-xs border-b-2">emoji...</div>
+          <div v-else class="opacity-50 text-xs border-b-2">emoji</div>
         </button>
         <emo-picker
           class="bottom-40 right-88 fixed z-30"
@@ -35,18 +35,19 @@
         />
         <div
           @input="titleInput"
-          class="tilteDiv outline-none font-medium border-b-2"
+          class="place-holder font-medium border-b-2"
           contenteditable="true"
           placeholder="How is your day in a nutshell ?"
         >
           {{ title }}
         </div>
-        <div class="pt-2">
-          <ckeditor
-            :editor="editor"
-            v-model="content"
-            :config="editorConfig"
-          ></ckeditor>
+        <div
+          @input="contentInput"
+          class="pt-2 place-holder whitespace-pre"
+          contenteditable="true"
+          placeholder="Tell me in details"
+        >
+          {{ content }}
         </div>
       </div>
     </div>
@@ -56,7 +57,6 @@
 <script>
 import { computed, ref, watch } from "vue";
 import EmoPicker from "../UI/EmoPicker.vue";
-import BalloonEditor from "@ckeditor/ckeditor5-build-balloon";
 import { addJournal } from "../../store/db/indexedDB";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
@@ -77,10 +77,6 @@ export default {
     let title = ref();
     let created = computed(() => route.params.created);
     let isLoading = computed(() => store.getters.isLoading);
-    let editorConfig = {
-      placeholder: "Tell me in details",
-      toolbar: { items: [] },
-    };
 
     const onClickEmoPicker = (value) => {
       if (value.detail) {
@@ -93,6 +89,10 @@ export default {
     };
     const titleInput = (e) => {
       title.value = e.target.innerText;
+    };
+    const contentInput = (e) => {
+      content.value = e.target.innerText;
+      console.log(content.value);
     };
     const fillJournal = async () => {
       store.commit(mutationTypes.IsLoading, true);
@@ -133,10 +133,9 @@ export default {
       isEmojiOpen,
       toggleEmojiTable,
       content,
+      contentInput,
       titleInput,
       title,
-      editor: BalloonEditor,
-      editorConfig,
       isLoading,
     };
   },
@@ -144,7 +143,7 @@ export default {
 </script>
 
 <style scoped>
-.tilteDiv[contentEditable="true"]:empty:not(:focus):before {
+.place-holder[contentEditable="true"]:empty:not(:focus):before {
   content: attr(placeholder);
   opacity: 50%;
 }
