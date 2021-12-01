@@ -30,3 +30,4 @@
 - ~~The contenteditable hit new line return to the start.~~. Use Ckeditor.
 - ~~Idb doesnt run upgrade().~~ Stupid me, run openDB in global var.
 - How will the Id in indexeddb sync with mysql ?
+- Contenteditable hit enter return back to start ?

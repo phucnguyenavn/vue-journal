@@ -33,22 +33,18 @@
           v-on:emoji-click="onClickEmoPicker"
           v-if="isEmojiOpen"
         />
-        <div
-          @input="titleInput"
-          class="place-holder font-medium border-b-2"
-          contenteditable="true"
+        <base-input
+          class="font-medium border-b-2"
           placeholder="How is your day in a nutshell ?"
+          v-model:value="title"
+          ></base-input
         >
-          {{ title }}
-        </div>
-        <div
-          @input="contentInput"
-          class="pt-2 place-holder whitespace-pre"
-          contenteditable="true"
+        <base-input
+          class="pt-2"
           placeholder="Tell me in details"
+          v-model:value="content"
+          ></base-input
         >
-          {{ content }}
-        </div>
       </div>
     </div>
   </div>
@@ -86,13 +82,6 @@ export default {
     };
     const toggleEmojiTable = () => {
       isEmojiOpen.value = !isEmojiOpen.value;
-    };
-    const titleInput = (e) => {
-      title.value = e.target.innerText;
-    };
-    const contentInput = (e) => {
-      content.value = e.target.innerText;
-      console.log(content.value);
     };
     const fillJournal = async () => {
       store.commit(mutationTypes.IsLoading, true);
@@ -133,25 +122,9 @@ export default {
       isEmojiOpen,
       toggleEmojiTable,
       content,
-      contentInput,
-      titleInput,
       title,
       isLoading,
     };
   },
 };
 </script>
-
-<style scoped>
-.place-holder[contentEditable="true"]:empty:not(:focus):before {
-  content: attr(placeholder);
-  opacity: 50%;
-}
-.ck-focused {
-  border: none !important;
-}
-:focus {
-  outline: 0 !important;
-  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
-}
-</style>

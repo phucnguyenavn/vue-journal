@@ -19,9 +19,3 @@ export default {
   setup() {},
 };
 </script>
-<style scoped>
-.name[contentEditable="true"]:empty:not(:focus):before {
-  content: attr(placeholder);
-  opacity: 50%;
-}
-</style>
