@@ -2,14 +2,16 @@
   <close-open-nav :isOpen="isOpen">
     <template v-slot:title> Todo </template>
     <div class="text-xs opacity-60 mt-4 hover:text-red-600 w-10">
-      <button
-        @click.prevent="toggleNewTask"     
-      >
-        + New
-      </button>
+      <button @click.prevent="toggleNewTask">+ New</button>
     </div>
-    <new-task v-if="isNewTaskOpen"/>
-    <task v-for="task in tasks" :key="task" :task="task"/>
+    <new-task v-if="isNewTaskOpen" />
+    <task
+      v-for="task in tasks"
+      :key="task.clientId"
+      :task="task"
+      :isSubTaskOpen="isSubTaskOpen"
+      @toggleSubTask="toggleSubTask"
+    />
   </close-open-nav>
 </template>
 
@@ -18,7 +20,7 @@ import { ref } from "vue";
 import CloseOpenNav from "../../UI/common/CloseOpenNav.vue";
 import { useRouter } from "vue-router";
 import NewTask from "./NewTask.vue";
-import Task from './Task.vue';
+import Task from "./Task.vue";
 import { getToDos } from "../../../store/db/indexedDB";
 
 export default {
@@ -28,17 +30,29 @@ export default {
     const router = useRouter();
     let tasks = ref();
     let isNewTaskOpen = ref(false);
+    let isSubTaskOpen = ref(false);
     const toggleNewTask = () => {
       isNewTaskOpen.value = !isNewTaskOpen.value;
     };
+    const toggleSubTask = () => {
+      isSubTaskOpen.value = !isSubTaskOpen.value;
+      if(!isSubTaskOpen.value){
+        router.push({name : "todo"});
+      }
+    };
 
-    
-    let getTasks = async () =>{
-      await getToDos().then(res => tasks.value= res);      
-    }
+    let getTasks = async () => {
+      await getToDos().then((res) => (tasks.value = res));
+    };
 
     getTasks();
-    return { isNewTaskOpen, toggleNewTask, tasks };
+    return {
+      isNewTaskOpen,
+      toggleNewTask,
+      tasks,
+      toggleSubTask,
+      isSubTaskOpen,
+    };
   },
 };
 </script>

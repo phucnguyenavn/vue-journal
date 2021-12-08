@@ -7,6 +7,7 @@
 - import.meta.env.VITE just a reminder.
 - - Use ref to get DOM , LifeHooks so important!
 - Stop making thing more complicated as it is.
+- Emit middle level @toggleSubTask="$emit('toggleSubTask',$event)" 
 
 ## Goals
 

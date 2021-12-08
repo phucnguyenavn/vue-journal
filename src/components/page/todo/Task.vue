@@ -1,4 +1,9 @@
 <template>
+  <sub-task
+    v-if="isSubTaskOpen"
+    :isSubTaskOpen="isSubTaskOpen"
+    @toggleSubTask="$emit('toggleSubTask',$event)"
+  />
   <div class="mt-2 cursor-pointer flex">
     <div
       class="rounded-xl h-5 w-5 border-2 shadow-lg"
@@ -10,28 +15,31 @@
       </div>
     </div>
     <div class="mx-3" :class="{ 'line-through': isDone }">
-      {{task.name}}
+      <router-link
+        :to="{ name: 'subtask', params: { clientId: task.clientId } }"
+        @click.prevent="$emit('toggleSubTask', $event)"
+        >{{ task.name }}</router-link
+      >
     </div>
-    
   </div>
 </template>
 
 <script lang="ts">
-import { ref, watch } from "vue";
-
+import { ref } from "vue";
+import SubTask from "./SubTask.vue";
 
 export default {
-  props : ["task"],
+  components: { SubTask },
+  props: ["task", "isSubTaskOpen", "toggleSubTask"],
+  emits : ["toggleSubTask"],
   setup() {
     let isDone = ref(false);
-    
+
     const switchChecked = () => {
       isDone.value = !isDone.value;
     };
-  
-    
+
     return { isDone, switchChecked };
   },
 };
 </script>
-

@@ -5,6 +5,7 @@ import Home from "./components/page/Home.vue";
 import Journal from "./components/page/Journal.vue";
 import Page from "./components/page/Page.vue";
 import ToDo from "./components/page/todo/ToDo.vue"
+import SubTask from "./components/page/todo/SubTask.vue";
 
 import { $cookies } from "./plugin/cookies";
 
@@ -33,7 +34,15 @@ const routes = [
         path: "todo",
         component: ToDo,
         name: "todo",
-        meta: {title:"Todo"}
+        meta: {title:"Todo"},
+        children : [
+          {
+            path: "subtask/:clientId",
+            component: SubTask,
+            name : "subtask",
+            meta : {title : " Sub Task"}
+          }
+        ]
       }
     ],
   },
