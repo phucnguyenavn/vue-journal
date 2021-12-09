@@ -4,14 +4,12 @@
     <div class="text-xs opacity-60 mt-4 hover:text-red-600 w-10">
       <button @click.prevent="toggleNewTask">+ New</button>
     </div>
-    <new-task v-if="isNewTaskOpen" />
-    <task
-      v-for="task in tasks"
-      :key="task.clientId"
-      :task="task"
-      :isSubTaskOpen="isSubTaskOpen"
-      @toggleSubTask="toggleSubTask"
+    <new-task
+      v-if="isNewTaskOpen"
+      @toggleNewTask="toggleNewTask"
+      :isNewTaskOpen="isNewTaskOpen"
     />
+    <task v-for="task in tasks" :key="task.clientId" :task="task" />
   </close-open-nav>
 </template>
 
@@ -30,14 +28,10 @@ export default {
     const router = useRouter();
     let tasks = ref();
     let isNewTaskOpen = ref(false);
-    let isSubTaskOpen = ref(false);
     const toggleNewTask = () => {
       isNewTaskOpen.value = !isNewTaskOpen.value;
-    };
-    const toggleSubTask = () => {
-      isSubTaskOpen.value = !isSubTaskOpen.value;
-      if(!isSubTaskOpen.value){
-        router.push({name : "todo"});
+      if (!isNewTaskOpen.value) {
+        router.push({ name: "todo" });
       }
     };
 
@@ -50,8 +44,6 @@ export default {
       isNewTaskOpen,
       toggleNewTask,
       tasks,
-      toggleSubTask,
-      isSubTaskOpen,
     };
   },
 };

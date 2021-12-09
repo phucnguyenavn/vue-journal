@@ -34,13 +34,13 @@
           v-if="isEmojiOpen"
         />
         <base-input
-          class="font-medium border-b-2"
+          class="font-medium border-b-2 w-full"
           placeholder="How is your day in a nutshell ?"
           v-model:value="title"
           ></base-input
         >
         <base-input
-          class="pt-2"
+          class="pt-2 w-full"
           placeholder="Tell me in details"
           v-model:value="content"
           ></base-input

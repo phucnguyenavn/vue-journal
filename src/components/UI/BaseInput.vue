@@ -3,7 +3,6 @@
     :value="value"
     @input="$emit('update:value', $event.target.value)"
     class="
-      w-full
       resize-none
       outline-none
       whitespace-pre-line
