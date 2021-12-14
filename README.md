@@ -7,6 +7,7 @@
 - import.meta.env.VITE just a reminder.
 - - Use ref to get DOM , LifeHooks so important!
 - Stop making thing more complicated as it is.
+- Emit middle level @toggleSubTask="$emit('toggleSubTask',$event)"
 
 ## Goals
 
@@ -25,5 +26,7 @@
 ## Unknown Problems
 
 - ~~Emoji picker only responses to negavition.~~ Read source code from another lib, found a way out.
-- ~~The contenteditable hit new line return to the start.~~. Use Ckeditor.
+- ~~The contenteditable hit new line return to the start.~~. ~~Use Ckeditor.~~ . Use textarea.
 - ~~Idb doesnt run upgrade().~~ Stupid me, run openDB in global var.
+- ~~How will the Id in indexeddb sync with mysql ?~~ clientId
+

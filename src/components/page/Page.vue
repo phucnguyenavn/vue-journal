@@ -3,20 +3,7 @@
     v-if="isPageOpen"
     @click.prevent="$emit('togglePageOpen', $event)"
   />
-  <div
-    v-if="isPageOpen"
-    class="
-      fixed
-      w-3/4
-      mx-auto
-      inset-x-0
-      h-5/6
-      top-12
-      z-20
-      bg-white
-      overflow-y-auto
-    "
-  >
+  <div v-if="isPageOpen" class="input">
     <div v-if="!isLoading">
       <div class="w-3/4 mx-auto border-b pb-1">
         <div class="mx-auto w-1/3 mt-3">
@@ -39,28 +26,23 @@
           <div v-if="emoji">
             {{ emoji }}
           </div>
-          <div v-else class="opacity-50 text-xs border-b-2">emoji...</div>
+          <div v-else class="opacity-50 text-xs border-b-2">emoji</div>
         </button>
         <emo-picker
           class="bottom-40 right-88 fixed z-30"
           v-on:emoji-click="onClickEmoPicker"
           v-if="isEmojiOpen"
         />
-        <div
-          @input="titleInput"
-          class="tilteDiv outline-none font-medium border-b-2"
-          contenteditable="true"
+        <base-input
+          class="font-medium border-b-2 w-full"
           placeholder="How is your day in a nutshell ?"
-        >
-          {{ title }}
-        </div>
-        <div class="pt-2">
-          <ckeditor
-            :editor="editor"
-            v-model="content"
-            :config="editorConfig"
-          ></ckeditor>
-        </div>
+          v-model:value="title"
+        ></base-input>
+        <base-input
+          class="pt-2 w-full"
+          placeholder="Tell me in details"
+          v-model:value="content"
+        ></base-input>
       </div>
     </div>
   </div>
@@ -69,8 +51,7 @@
 <script>
 import { computed, ref, watch } from "vue";
 import EmoPicker from "../UI/EmoPicker.vue";
-import BalloonEditor from "@ckeditor/ckeditor5-build-balloon";
-import { addDB } from "../../store/db/indexedDB";
+import { addJournal } from "../../store/db/indexedDB";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { getJournal } from "../../store/db/indexedDB";
@@ -90,10 +71,6 @@ export default {
     let title = ref();
     let created = computed(() => route.params.created);
     let isLoading = computed(() => store.getters.isLoading);
-    let editorConfig = {
-      placeholder: "Tell me in details",
-      toolbar: { items: [] },
-    };
 
     const onClickEmoPicker = (value) => {
       if (value.detail) {
@@ -103,9 +80,6 @@ export default {
     };
     const toggleEmojiTable = () => {
       isEmojiOpen.value = !isEmojiOpen.value;
-    };
-    const titleInput = (e) => {
-      title.value = e.target.innerText;
     };
     const fillJournal = async () => {
       store.commit(mutationTypes.IsLoading, true);
@@ -118,7 +92,7 @@ export default {
             title.value = res.title;
           }
         })
-        .finally(store.commit(mutationTypes.IsLoading, false));
+        .finally(() => store.commit(mutationTypes.IsLoading, false));
     };
 
     watch([content, title, emoji, mood], (newValue, oldValue) => {
@@ -130,7 +104,7 @@ export default {
           created: created.value,
           mood: mood.value[0],
         };
-        addDB(journal);
+        addJournal(journal);
         store.commit(mutationTypes.AppendModifiedJournals, journal);
       }
     });
@@ -146,26 +120,9 @@ export default {
       isEmojiOpen,
       toggleEmojiTable,
       content,
-      titleInput,
       title,
-      editor: BalloonEditor,
-      editorConfig,
       isLoading,
     };
   },
 };
 </script>
-
-<style scoped>
-.tilteDiv[contentEditable="true"]:empty:not(:focus):before {
-  content: attr(placeholder);
-  opacity: 50%;
-}
-.ck-focused {
-  border: none !important;
-}
-:focus {
-  outline: 0 !important;
-  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
-}
-</style>

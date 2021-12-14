@@ -1,7 +1,7 @@
 import customAxios from "../../api/client";
 import { API_LOCATION } from "../../api/ApiLocation";
 import { actionTypes, mutationTypes } from "../store-types";
-import { addDB } from "../db/indexedDB";
+import { addJournal } from "../db/indexedDB";
 
 export default {
   async [actionTypes.FindUserJournalId](context, payload) {
@@ -36,8 +36,7 @@ export default {
       .then((res) => {
         if (res.data !== undefined) {
           for (let i = 0; i < res.data.length; i++) {
-            addDB(res.data[i]);
-            console.log(res.data);
+            addJournal(res.data[i]);
           }
         }
       })
@@ -45,11 +44,11 @@ export default {
   },
 
   async [actionTypes.PushJournal](context, payload) {
+    let journals = await payload.journals;
     const userJournal = {
       syncIdDto: payload.syncId,
-      journals: JSON.parse(JSON.stringify(Array.from(payload.journals))),
+      journals: JSON.parse(JSON.stringify(Array.from(journals))),
     };
-    console.log(userJournal.journals);
     if (userJournal.journals.length !== 0) {
       await customAxios
         .post(API_LOCATION.PUSH_JOURNAL, userJournal)

@@ -4,40 +4,20 @@
     @togglePageOpen="togglePageOpen"
     v-if="isPageOpen"
   />
-  <div
-    class="mt-6"
-    :class="{ 'w-3/4 ml-40 ': isOpen, 'w-10/12 mx-auto': !isOpen }"
-  >
-    <div class="text-lg font-bold">Journal</div>
+  <close-open-nav :isOpen="isOpen">
+    <template v-slot:title> Journal </template>
     <div class="mt-6 text-xs">
       <div class="border-b flex pb-1">
         <datepicker
           placeholder="Date Picker"
-          class="
-            cursor-pointer
-            outline-none
-            rounded-md
-            bg-gray-50
-            w-16
-            border
-            bg-gray-100
-          "
+          class="cursor-pointer outline-none rounded-md bg-gray-50 w-16 border bg-gray-100"
           v-model="dateSelected"
           minimumView="month"
           inputFormat="MM/yyyy"
           :upper-limit="new Date()"
         />
         <div
-          class="
-            ml-auto
-            order-2
-            rounded-sm
-            text-white
-            font-medium
-            bg-amber-300
-            ring-2 ring-amber-500
-            px-1
-          "
+          class="ml-auto order-2 rounded-sm text-white font-medium bg-amber-300 ring-2 ring-amber-500 px-1"
         >
           <router-link
             class=""
@@ -65,7 +45,7 @@
         </router-link>
       </div>
     </div>
-  </div>
+  </close-open-nav>
 </template>
 
 <script>
@@ -76,9 +56,10 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { getJournals } from "../../store/db/indexedDB";
 import { mutationTypes } from "../../store/store-types";
+import CloseOpenNav from "../UI/common/CloseOpenNav.vue";
 
 export default {
-  components: { Page, Datepicker },
+  components: { Page, Datepicker, CloseOpenNav },
   props: ["isOpen"],
   setup() {
     const store = useStore();
@@ -95,7 +76,7 @@ export default {
         .then((res) => {
           journals.value = res.filter((ele) => filterJournal(ele));
         })
-        .finally(store.commit(mutationTypes.IsLoading, false));
+        .finally(() => store.commit(mutationTypes.IsLoading, false));
     };
 
     const togglePageOpen = () => {

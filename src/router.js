@@ -12,19 +12,19 @@ const routes = [
     path: "/",
     component: Home,
     name: "home",
-    meta: { title: "PlaceHolder - Home" },
+    meta: { title: " Home" },
     children: [
       {
         path: "journal",
         component: Journal,
         name: "journal",
-        meta: { title: "PlaceHolder - Journal" },
+        meta: { title: " Journal" },
         children: [
           {
             path: "/page/:created",
             component: Page,
             name: "page",
-            meta: { title: "PlaceHolder - Journal" },
+            meta: { title: " Journal" },
           },
         ],
       },
@@ -34,13 +34,13 @@ const routes = [
     path: "/login",
     component: Login,
     name: "login",
-    meta: { title: "PlaceHolder - Login" },
+    meta: { title: " Login" },
   },
   {
     path: "/signup",
     component: Registration,
     name: "signup",
-    meta: { title: "PlaceHolder - Registration" },
+    meta: { title: " Registration" },
   },
 ];
 

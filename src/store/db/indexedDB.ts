@@ -1,6 +1,6 @@
 import { openDB } from "idb";
 
-const DB_NAME = "utility-db";
+const DB_NAME = "journal-db";
 const DB_VERSION = 1;
 
 interface Journal {
@@ -30,7 +30,7 @@ export async function getDB() {
   });
 }
 
-export async function addDB(journal: Journal) {
+export async function addJournal(journal: Journal) {
   const db = await openDB(DB_NAME, DB_VERSION);
   await db.put("journal", journal);
 }
@@ -45,20 +45,4 @@ export async function getJournal(key: Date) {
 export async function getJournals() {
   const db = await openDB(DB_NAME, DB_VERSION);
   return await db.getAll("journal");
-}
-
-export async function mockData() {
-  const db = await openDB(DB_NAME, DB_VERSION);
-  for (let i = 1; i < 30; i++) {
-    let d = new Date();
-    d.setDate(i);
-    let date = d.toLocaleDateString();
-    await db.put("journal", {
-      title: "abc " + i,
-      content: "<p>def " + i + "</p>",
-      emoji: "😗",
-      date: date,
-      mood: 1,
-    });
-  }
 }

@@ -15,19 +15,23 @@
       class="cursor-pointer"
       @click="toggle"
     />
-    <div v-if="isOpen">
+    <div v-if="isOpen" class="border shadow-xl h-screen">
       <div class="underline text-xs cursor-pointer w-12" @Click="logout">
         Log out
       </div>
-      <div class="m-7 font-medium cursor-pointer" @click="toJournal">
-        <div class="inline-block"><img :src="journalImg" class="w-3.5" /></div>
-        <div class="inline-block">Journal</div>
+      <div class="mt-10 side-nav-bar" @click="toJournal">
+        <div class="mx-5">
+          <div class="inline-block">
+            <img :src="journalImg" class="w-3.5" />
+          </div>
+          <div class="inline-block">&ensp;Journal</div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { ref } from "vue";
 import { doubleArrowRightSvg, doubleArrowLeftSvg } from "../../common/SvgPath";
 import journalSvg from "../../assets/journal.svg";
@@ -44,8 +48,11 @@ export default {
     const doubleArrowRight = ref(doubleArrowRightSvg);
     const doubleArrowLeft = ref(doubleArrowLeftSvg);
     const journalImg = ref(journalSvg);
-
     let isCurrent = ref(true);
+
+    const toJournal = async () => {
+      await router.push({ name: "journal" });
+    };
 
     const logout = async () => {
       await store.dispatch(actionTypes.PushJournal, {
@@ -60,9 +67,7 @@ export default {
       store.commit(mutationTypes.SetActionJournalSync, "");
       await router.push({ name: "login" });
     };
-    const toJournal = async () => {
-      await router.push({ name: "journal" });
-    };
+
     return {
       doubleArrowRight,
       doubleArrowLeft,

@@ -21,4 +21,18 @@
         bg-contain
         mx-0.5;
   }
+  .side-nav-bar {
+    @apply w-full font-medium cursor-pointer border-b inline-block;
+  }
+  .input {
+    @apply fixed
+      w-3/4
+      mx-auto
+      inset-x-0
+      h-5/6
+      top-12
+      z-20
+      bg-white
+      overflow-y-auto;
+  }
 }
