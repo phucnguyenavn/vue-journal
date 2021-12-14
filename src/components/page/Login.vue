@@ -19,7 +19,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { useStore } from "vuex";
 import { ref, computed } from "vue";
 import PasswordInput from "../UI/auth/PasswordInput.vue";
@@ -34,8 +34,8 @@ export default {
   setup() {
     const store = useStore();
     const router = useRouter();
-    let enteredEmail = ref("");
-    let enteredPassword = ref("");
+    let enteredEmail = ref("test@test.com");
+    let enteredPassword = ref("test12");
     let isError = ref(false);
     let isLoading = computed(() => store.getters.isLoading);
 

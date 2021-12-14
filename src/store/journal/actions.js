@@ -37,7 +37,6 @@ export default {
         if (res.data !== undefined) {
           for (let i = 0; i < res.data.length; i++) {
             addJournal(res.data[i]);
-            console.log(res.data);
           }
         }
       })
@@ -46,10 +45,9 @@ export default {
 
   async [actionTypes.PushJournal](context, payload) {
     let journals = await payload.journals;
-    console.log(journals);
     const userJournal = {
       syncIdDto: payload.syncId,
-      journals:  JSON.parse(JSON.stringify(Array.from(journals))),
+      journals: JSON.parse(JSON.stringify(Array.from(journals))),
     };
     if (userJournal.journals.length !== 0) {
       await customAxios

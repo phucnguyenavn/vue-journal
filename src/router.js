@@ -4,8 +4,6 @@ import Registration from "./components/page/Registration.vue";
 import Home from "./components/page/Home.vue";
 import Journal from "./components/page/Journal.vue";
 import Page from "./components/page/Page.vue";
-import ToDo from "./components/page/todo/ToDo.vue"
-import NewTask from "./components/page/todo/NewTask.vue";
 
 import { $cookies } from "./plugin/cookies";
 
@@ -27,20 +25,6 @@ const routes = [
             component: Page,
             name: "page",
             meta: { title: " Journal" },
-          },
-        ],
-      },
-      {
-        path: "todo",
-        component: ToDo,
-        name: "todo",
-        meta: { title: "Todo" },
-        children: [
-          {
-            path: "newtask/:clientId",
-            component: NewTask,
-            name: "newtask",
-            meta: { title: " New Task" },
           },
         ],
       },

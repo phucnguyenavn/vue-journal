@@ -2,7 +2,7 @@
   <router-view />
 </template>
 
-<script>
+<script lang="ts">
 import { getDB, getJournals } from "./store/db/indexedDB";
 import { useStore } from "vuex";
 import { computed, watch } from "vue";
@@ -24,13 +24,13 @@ export default {
         };
         console.log(syncId);
         if (actionJournalSync.value === "PUSH") {
-           store.dispatch(actionTypes.PushJournal, {
+          store.dispatch(actionTypes.PushJournal, {
             syncId: syncId,
-            journals: getJournals().then((res) => res),         
+            journals: getJournals().then((res) => res),
           });
         } else if (actionJournalSync.value === "PULL") {
           store.dispatch(actionTypes.PullJournal, {
-            syncId: journalSync,
+            syncId: syncId,
           });
         }
       }
@@ -49,10 +49,10 @@ export default {
     };
     setInterval(() => {
       let date = new Date();
-      if(date.getMinutes() %5 ==0){
+      if (date.getMinutes() % 5 == 0) {
         push();
-      }     
-    },60 * 1000);
+      }
+    }, 60 * 1000);
 
     getDB();
   },

@@ -16,7 +16,7 @@ app.use(store);
 app.use(router);
 cookiesInit(app);
 
-app.component("base-input",BaseInput);
+app.component("base-input", BaseInput);
 app.component("backdrop", Backdrop);
 app.component("base-svg", BaseSvg);
 app.component("spinner", spinner);

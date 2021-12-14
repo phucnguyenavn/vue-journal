@@ -6,7 +6,7 @@
   />
 </template>
 
-<script>
+<script lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
 import { Picker } from "emoji-picker-element";
 

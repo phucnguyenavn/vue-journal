@@ -1,6 +1,6 @@
 import { openDB } from "idb";
 
-const DB_NAME = "utility-db";
+const DB_NAME = "journal-db";
 const DB_VERSION = 1;
 
 interface Journal {
@@ -11,21 +11,11 @@ interface Journal {
   mood: Number;
 }
 
-interface ToDo {
-  clientId : number,
-  name : String;
-  description : String;
-  isDone : Boolean;
-  priority : String;
-  subTask : []
-}
-
 export async function getDB() {
   await openDB(DB_NAME, DB_VERSION, {
     upgrade(db, oldVersion) {
       if (oldVersion < 1) {
         db.createObjectStore("journal", { keyPath: "created" });
-        db.createObjectStore("todo", {keyPath: "clientId",autoIncrement: true});
       }
     },
     blocked() {
@@ -56,36 +46,3 @@ export async function getJournals() {
   const db = await openDB(DB_NAME, DB_VERSION);
   return await db.getAll("journal");
 }
-
-export async function addToDo(todo : ToDo){
-  const db = await openDB(DB_NAME, DB_VERSION);
-  await db.put("todo", todo);
-}
-
-export async function getToDo(key : number){
-  if(key){
-    const db = await openDB(DB_NAME, DB_VERSION);
-    return await db.get("todo",key);
-  }
-}
-
-export async function getToDos() {
-  const db = await openDB(DB_NAME, DB_VERSION);
-  return await db.getAll("todo");
-}
-
-/* export async function mockData() {
-  const db = await openDB(DB_NAME, DB_VERSION);
-  for (let i = 1; i < 30; i++) {
-    let d = new Date();
-    d.setDate(i);
-    let date = d.toLocaleDateString();
-    await db.put("journal", {
-      title: "abc " + i,
-      content: "<p>def " + i + "</p>",
-      emoji: "😗",
-      date: date,
-      mood: 1,
-    });
-  }
-} */

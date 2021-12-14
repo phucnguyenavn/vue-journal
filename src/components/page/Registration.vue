@@ -18,7 +18,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { useStore } from "vuex";
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";

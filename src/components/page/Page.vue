@@ -37,14 +37,12 @@
           class="font-medium border-b-2 w-full"
           placeholder="How is your day in a nutshell ?"
           v-model:value="title"
-          ></base-input
-        >
+        ></base-input>
         <base-input
           class="pt-2 w-full"
           placeholder="Tell me in details"
           v-model:value="content"
-          ></base-input
-        >
+        ></base-input>
       </div>
     </div>
   </div>
@@ -94,7 +92,7 @@ export default {
             title.value = res.title;
           }
         })
-        .finally(store.commit(mutationTypes.IsLoading, false));
+        .finally(() => store.commit(mutationTypes.IsLoading, false));
     };
 
     watch([content, title, emoji, mood], (newValue, oldValue) => {

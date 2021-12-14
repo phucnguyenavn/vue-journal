@@ -2,20 +2,14 @@
   <textarea
     :value="value"
     @input="$emit('update:value', $event.target.value)"
-    class="
-      resize-none
-      outline-none
-      whitespace-pre-line
-      overflow-hidden
-      text-sm
-    "
+    class="resize-none outline-none whitespace-pre-line overflow-hidden text-sm"
     ref="textarea"
     :oninput="autoGrow"
     :placeholder="placeholder"
   />
 </template>
 
-<script>
+<script lang="ts">
 import { computed, ref } from "vue";
 export default {
   props: ["placeholder", "value", "placeholder"],

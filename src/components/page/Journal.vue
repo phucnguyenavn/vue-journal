@@ -10,31 +10,14 @@
       <div class="border-b flex pb-1">
         <datepicker
           placeholder="Date Picker"
-          class="
-            cursor-pointer
-            outline-none
-            rounded-md
-            bg-gray-50
-            w-16
-            border
-            bg-gray-100
-          "
+          class="cursor-pointer outline-none rounded-md bg-gray-50 w-16 border bg-gray-100"
           v-model="dateSelected"
           minimumView="month"
           inputFormat="MM/yyyy"
           :upper-limit="new Date()"
         />
         <div
-          class="
-            ml-auto
-            order-2
-            rounded-sm
-            text-white
-            font-medium
-            bg-amber-300
-            ring-2 ring-amber-500
-            px-1
-          "
+          class="ml-auto order-2 rounded-sm text-white font-medium bg-amber-300 ring-2 ring-amber-500 px-1"
         >
           <router-link
             class=""
@@ -93,7 +76,7 @@ export default {
         .then((res) => {
           journals.value = res.filter((ele) => filterJournal(ele));
         })
-        .finally(store.commit(mutationTypes.IsLoading, false));
+        .finally(() => store.commit(mutationTypes.IsLoading, false));
     };
 
     const togglePageOpen = () => {

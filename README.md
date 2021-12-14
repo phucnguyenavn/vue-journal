@@ -7,7 +7,7 @@
 - import.meta.env.VITE just a reminder.
 - - Use ref to get DOM , LifeHooks so important!
 - Stop making thing more complicated as it is.
-- Emit middle level @toggleSubTask="$emit('toggleSubTask',$event)" 
+- Emit middle level @toggleSubTask="$emit('toggleSubTask',$event)"
 
 ## Goals
 
@@ -22,12 +22,11 @@
 - ~~User Input~~
 - ~~AutoSave to IndexedDB~~
 - ~~Sync back to backend~~
-- Plan how would todo and pomodoro work
-- Todo
-- Pomodoro  
+
 ## Unknown Problems
 
 - ~~Emoji picker only responses to negavition.~~ Read source code from another lib, found a way out.
 - ~~The contenteditable hit new line return to the start.~~. ~~Use Ckeditor.~~ . Use textarea.
 - ~~Idb doesnt run upgrade().~~ Stupid me, run openDB in global var.
-- How will the Id in indexeddb sync with mysql ?
+- ~~How will the Id in indexeddb sync with mysql ?~~ clientId
+

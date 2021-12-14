@@ -8,7 +8,7 @@
     <option class="bg-red-500" value="P4">p4</option>
     <option class="bg-amber-500" value="P3">p3</option>
     <option class="bg-green-500" value="P2">p2</option>
-    <option class="bg-gray-500" value="P1">p1</option>
+    <option class="bg-gray-500" value="P1" selected>p1</option>
   </select>
 </template>
 
